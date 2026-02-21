@@ -1,4 +1,4 @@
-// Copyright (C) 2020, MinIO, Inc.
+// Copyright (C) 2020, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -58,7 +58,7 @@ func minioEnvironmentVars(skipEnvVars map[string][]byte) []corev1.EnvVar {
 	return envVars
 }
 
-// PodMetadata Returns the MinIO pods metadata set in configuration.
+// PodMetadata Returns the Hanzo S3 pods metadata set in configuration.
 // If a user specifies metadata in the spec we return that metadata.
 func PodMetadata(t *miniov2.Tenant, pool *miniov2.Pool) metav1.ObjectMeta {
 	meta := metav1.ObjectMeta{}
@@ -135,7 +135,7 @@ func volumeMounts(t *miniov2.Tenant, pool *miniov2.Pool, certVolumeSources []cor
 	return mounts
 }
 
-// Builds the MinIO container for a Tenant.
+// Builds the Hanzo S3 container for a Tenant.
 func poolMinioServerContainer(t *miniov2.Tenant, skipEnvVars map[string][]byte, pool *miniov2.Pool, certVolumeSources []corev1.VolumeProjection) corev1.Container {
 	consolePort := miniov2.ConsolePort
 	if t.TLS() {
@@ -202,7 +202,7 @@ func poolMinioServerContainer(t *miniov2.Tenant, skipEnvVars map[string][]byte, 
 	}
 }
 
-// GetContainerArgs returns the arguments that the MinIO container receives
+// GetContainerArgs returns the arguments that the Hanzo S3 container receives
 func GetContainerArgs(t *miniov2.Tenant, hostsTemplate string) []string {
 	var args []string
 	if len(t.Spec.Pools) == 1 && t.Spec.Pools[0].Servers == 1 {

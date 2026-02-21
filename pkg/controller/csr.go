@@ -1,4 +1,4 @@
-// Copyright (C) 2020, MinIO, Inc.
+// Copyright (C) 2020, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -110,7 +110,7 @@ func (c *Controller) createCertificateSigningRequest(ctx context.Context, labels
 				{
 					Type:           certificatesV1.CertificateApproved,
 					Reason:         "MinIOOperatorAutoApproval",
-					Message:        "Automatically approved by MinIO Operator",
+					Message:        "Automatically approved by Hanzo S3 Operator",
 					LastUpdateTime: metav1.NewTime(time.Now()),
 					Status:         "True",
 				},
@@ -161,7 +161,7 @@ func (c *Controller) createCertificateSigningRequest(ctx context.Context, labels
 				{
 					Type:           certificatesV1beta1.CertificateApproved,
 					Reason:         "MinIOOperatorAutoApproval",
-					Message:        "Automatically approved by MinIO Operator",
+					Message:        "Automatically approved by Hanzo S3 Operator",
 					LastUpdateTime: metav1.NewTime(time.Now()),
 					Status:         "True",
 				},

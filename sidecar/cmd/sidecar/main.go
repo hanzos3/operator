@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2024 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2024 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -97,10 +97,10 @@ func newApp(name string) *cli.App {
 	app := cli.NewApp()
 	app.Name = name
 	app.Version = pkg.Version + " - " + pkg.ShortCommitID
-	app.Author = "MinIO, Inc."
-	app.Usage = "MinIO Operator Sidecar"
-	app.Description = `MinIO Operator automates the orchestration of MinIO Tenants on Kubernetes.`
-	app.Copyright = "(c) 2024 MinIO, Inc."
+	app.Author = "Hanzo AI, Inc."
+	app.Usage = "Hanzo S3 Operator Sidecar"
+	app.Description = `Hanzo S3 Operator automates the orchestration of S3-compatible object storage tenants on Kubernetes.`
+	app.Copyright = "(c) 2024 Hanzo AI, Inc."
 	app.Compiled, _ = time.Parse(time.RFC3339, pkg.ReleaseTime)
 	app.Commands = commands
 	app.HideHelpCommand = true // Hide `help, h` command, we already have `minio --help`.

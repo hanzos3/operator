@@ -5,7 +5,7 @@ delete storage in CI/CD scenarios. On the other hand, if configured in productio
 potential data loss.
 
 Kubernetes does not automatically delete Persistent Volume Claims (PVCs) when a StatefulSet is deleted, due to the risk
-involved. This decision is left to the user. The MinIO Operator adheres to this practice as well.
+involved. This decision is left to the user. The Hanzo S3 Operator adheres to this practice as well.
 
 To delete a tenant's storage, you should manually delete the PVCs associated with the tenant. This can be done via
 kubectl at the same time you are deleting the tenant. For example, to delete a tenant named tenant in the namespace

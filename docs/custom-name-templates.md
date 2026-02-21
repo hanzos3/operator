@@ -5,10 +5,10 @@ name services, which is useful for serving with trusted certificates.
 
 ## Getting Started
 
-If MinIO Tenant is named `tenant1`, then the four servers will be
+If Hanzo S3 Tenant is named `tenant1`, then the four servers will be
 called `myminio-pool-0-0`, `myminio-pool-0-1`, `myminio-pool-0-2`, and `myminio-pool-0-3`. If all of your hosts are
 available at the domain `example.com` then you can use the `--hosts-template` flag
-in [MinIO Operator Deployment yaml](https://github.com/minio/operator/blob/master/minio-operator.yaml) to update
+in [Hanzo S3 Operator Deployment yaml](https://github.com/hanzos3/operator/blob/master/minio-operator.yaml) to update
 discovery. This will generate the discovery string `myminio-pool-0-{0...3}.example.com`.
 
 ```yaml

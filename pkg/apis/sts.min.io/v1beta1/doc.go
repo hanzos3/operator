@@ -1,4 +1,4 @@
-// Copyright (C) 2024, MinIO, Inc.
+// Copyright (C) 2024, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -15,11 +15,11 @@
 // +k8s:deepcopy-gen=package,register
 // go:generate controller-gen crd:trivialVersions=true paths=. output:dir=.
 
-// Package v1beta1 - The following parameters are specific to the `sts.min.io/v1beta1` MinIO Policy Binding CRD API
-// PolicyBinding is an Authorization mechanism managed by the Minio Operator.
+// Package v1beta1 - The following parameters are specific to the `sts.min.io/v1beta1` Hanzo S3 Policy Binding CRD API
+// PolicyBinding is an Authorization mechanism managed by the Hanzo S3 Operator.
 // Using Kubernetes ServiceAccount JSON Web Tokens the binding allow a ServiceAccount to assume temporary IAM credentials.
 // For more complete documentation on this object, see the https://docs.min.io/minio/k8s/reference/minio-operator-reference.html#minio-operator-yaml-reference[MinIO Kubernetes Documentation].
-// PolicyBinding is added as part of the MinIO Operator v5.0.0. +
+// PolicyBinding is added as part of the Hanzo S3 Operator v5.0.0. +
 // +groupName=sts.min.io
 // +versionName=v1beta1
 package v1beta1

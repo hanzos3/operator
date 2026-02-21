@@ -1,4 +1,4 @@
-// Copyright (C) 2020, MinIO, Inc.
+// Copyright (C) 2020, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -14,7 +14,7 @@
 
 package v2
 
-// MinIOPodLabels returns the default labels for MinIO Pod
+// MinIOPodLabels returns the default labels for Hanzo S3 Pod
 func (t *Tenant) MinIOPodLabels() map[string]string {
 	m := make(map[string]string, 1)
 	m[TenantLabel] = t.Name

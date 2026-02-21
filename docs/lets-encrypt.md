@@ -1,6 +1,6 @@
-# MinIO tenant with Let's Encrypt [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Hanzo S3 tenant with Let's Encrypt [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-This document explains how to deploy a MinIO tenant using certificates generated
+This document explains how to deploy a Hanzo S3 tenant using certificates generated
 by [Let's Encrypt](https://letsencrypt.org/).
 
 ## Getting Started
@@ -8,9 +8,9 @@ by [Let's Encrypt](https://letsencrypt.org/).
 ### Prerequisites
 
 - Kubernetes version `+v1.19`. While cert-manager
-  supports [earlier K8s versions](https://cert-manager.io/docs/installation/supported-releases/), the MinIO Operator
+  supports [earlier K8s versions](https://cert-manager.io/docs/installation/supported-releases/), the Hanzo S3 Operator
   requires 1.19 or later.
-- MinIO Operator installed
+- Hanzo S3 Operator installed
 - `kubectl` access to your `k8s` cluster
 - [cert-manager](https://cert-manager.io/docs/installation/) 1.7.X or later installed
 
@@ -18,7 +18,7 @@ by [Let's Encrypt](https://letsencrypt.org/).
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.2/cert-manager.yaml
 ```
 
-- Support for assigning public IPs for `LoadBalancer` type services, if you are deploying `MinIO` on `GKE`, `EKS`, `AKS`
+- Support for assigning public IPs for `LoadBalancer` type services, if you are deploying `Hanzo S3` on `GKE`, `EKS`, `AKS`
   or any other major public cloud provider this functionality is included out of the box, if you are deploying this on a
   bare metal `kubernetes` cluster you can use [metallb](https://metallb.universe.tf/), ie:
 
@@ -42,7 +42,7 @@ helm install nginx-ingress  nginx-stable/nginx-ingress \
 ```
 
 - [kustomize](https://kustomize.io/) installed
-- Configure your DNS to route traffic from the MinIO Tenant S3 API hostname (e.g. minio.example.com) and the Tenant
+- Configure your DNS to route traffic from the Hanzo S3 Tenant S3 API hostname (e.g. minio.example.com) and the Tenant
   Console hostname(e.g. console.example.com) to the IP address of the worker node running ingress.
 
 ### Deploy tenant
@@ -73,7 +73,7 @@ spec:
 EOF
 ```
 
-Use the example to deploy a `MinIO` tenant, go into base folder of the operator project and run the following command.
+Use the example to deploy a `Hanzo S3` tenant, go into base folder of the operator project and run the following command.
 
 ```bash
 kustomize build examples/kustomization/tenant-letsencrypt | kubectl apply -f -
@@ -123,7 +123,7 @@ spec:
 `cert-manager` will request a certificate for this tenant using `Let's Encrypt` and store the actual public and private
 key on the `tenant-tls` secret.
 
-Once all MinIO pods are up and running you can query your endpoints with curl to make sure the communication happens
+Once all Hanzo S3 pods are up and running you can query your endpoints with curl to make sure the communication happens
 over `TLS`.
 
 ```bash

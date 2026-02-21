@@ -1,15 +1,15 @@
 Upgrades
 ====
 
-In this document we will try to document relevant upgrade notes for the MinIO Operator.
+In this document we will try to document relevant upgrade notes for the Hanzo S3 Operator.
 
 v6.0.0
 ---
 
 This release is focused on a variety of improvements and bug fixes. Mainly reducing the number of times we need to do a
-rolling restart for a MinIO Tenant, for example when the MinIO Operator is upgraded or downgraded.
+rolling restart for a Hanzo S3 Tenant, for example when the Hanzo S3 Operator is upgraded or downgraded.
 
-This release introduces a readiness probe to prevent kubernetes from routing traffic to a MinIO pod that is not ready
+This release introduces a readiness probe to prevent kubernetes from routing traffic to a Hanzo S3 pod that is not ready
 
 > [!IMPORTANT]
 > Upgrading to v6.0.0 will cause all pods to restart upon upgrade.
@@ -25,7 +25,7 @@ The `Operator UI` is now bundled on the same container as operator.
 The `.spec.S3` field was removed in favor of `.spec.features`.
 
 Field `.spec.credsSecret` was removed in favor of `.spec.configuration`, this secret should hold all the environment
-variables for the MinIO deployment that contain sensitive information and should not be shown on `.spec.env`.
+variables for the Hanzo S3 deployment that contain sensitive information and should not be shown on `.spec.env`.
 
 Both `Log Search API` (`.spec.log`) and `Prometheus` (`.spec.prometheus`) deployments were removed, however they will be
 left running as stand-alone
@@ -52,7 +52,7 @@ kubectl -n $NAMESPACE get svc $TENANT_NAME-prometheus-hl-svc -o yaml > $TENANT_N
 
 After exporting these objects, remove `.metadata.ownerReferences` for all these files.
 
-After upgrading, to have the MinIO Tenant keep using these services, just add the following environment variables
+After upgrading, to have the Hanzo S3 Tenant keep using these services, just add the following environment variables
 to `.spec.env`
 
 ```yaml
@@ -83,17 +83,17 @@ Support for Prometheus ServiceMonitor is removed. Using ServiceMonitor to config
 duplicate metrics. The alternate approach is to use
 Prometheus [AdditionalScrapeConfigs](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/additional-scrape-config.md).
 This can be enabled by setting `prometheusOperator: true` on the tenant.
-Once this is configured, MinIO Operator will create the additional configuration for the tenant.
+Once this is configured, Hanzo S3 Operator will create the additional configuration for the tenant.
 If the prometheus is running on a particular namespace, `PROMETHEUS_NAMESPACE` can be set accordingly.
 
 v4.2.3 - v4.2.4
 ---
-In this version we started running the MinIO pods as `non-root` to increase security in the MinIO deployment, however
+In this version we started running the Hanzo S3 pods as `non-root` to increase security in the Hanzo S3 deployment, however
 this has the implication that older tenants that were not specifying
 a [securityContext](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) on a per-pool basis may
 suddenly stop starting due to file-ownership problems.
 
-This problem may be identified on the MinIO logs by seeing a log line like:
+This problem may be identified on the server logs by seeing a log line like:
 
 ```
 Unable to read 'format.json' from https://production-storage-pool-0-1.production-storage-hl.ns-3.svc.cluster
@@ -118,11 +118,11 @@ respectively.
 v4.2.2 to v4.2.3
 ---
 
-Before upgrading the `MinIO Operator` you need to make the following changes to all the existing `MinIO Tenants`.
+Before upgrading the `Hanzo S3 Operator` you need to make the following changes to all the existing `Hanzo S3 Tenants`.
 
-- Update your current `MinIO image` to the latest version in the tenant spec.
+- Update your current `Hanzo S3 image` to the latest version in the tenant spec.
 - Make sure every `pool` in `tenant.spec.pools` explicitly set a `securityContext` if not configured already, if this is
-  the first time you are configuring a `securityContext` then your `MinIO` pods are running as root, and you need to
+  the first time you are configuring a `securityContext` then your `Hanzo S3` pods are running as root, and you need to
   use:
 
 ```yaml
@@ -161,27 +161,27 @@ Before upgrading the `MinIO Operator` you need to make the following changes to 
 You can make all the changes directly via `kubectl edit tenants $(TENANT-NAME) -n $(NAMESPACE)` or edit your
 `tenant.yaml` and apply the changes: `kubectl apply -f tenant.yaml`.
 
-Failing to apply this changes will cause some issues during the upgrade such as `MinIO` pods not able to `read/write` on
+Failing to apply this changes will cause some issues during the upgrade such as `Hanzo S3` pods not able to `read/write` on
 existing volumes (this happens if you don't add the right `securityContext`) or they will take too long to start.
 
-### Upgrade MinIO Operator and Upgrade tenants
+### Upgrade Hanzo S3 Operator and Upgrade tenants
 
 Once all your tenants are prepared for the upgrade it's time to upgrade Operator:
 
 ```bash
-kubectl apply -k github.com/minio/operator/\?ref\=v4.2.3
+kubectl apply -k github.com/hanzos3/operator/\?ref\=v4.2.3
 ```
 
-The above command will update the MinIO `Tenant CRD`, update the MinIO Operator `image` and trigger the upgrade for each
+The above command will update the `Tenant CRD`, update the Hanzo S3 Operator `image` and trigger the upgrade for each
 existing tenant.
 
 
 v3.x.x to v4.x.x
 ---
 
-Before upgrading the `MinIO Operator` you need to make the following changes to all the existing `MinIO Tenants`.
+Before upgrading the `Hanzo S3 Operator` you need to make the following changes to all the existing `Hanzo S3 Tenants`.
 
-- Update your current `MinIO image` to the latest version in the tenant spec.
+- Update your current `Hanzo S3 image` to the latest version in the tenant spec.
 - Make sure every `zone` in `tenant.spec.zones` explicitly set a zone `name` if not configured already.
 - Make sure every `zone` in `tenant.spec.zones` explicitly set a `securityContext` if not configured already.
 
@@ -232,23 +232,23 @@ You can make all the changes directly via `kubectl edit tenants $(TENANT-NAME) -
 
 Failing to apply this changes will cause some issues during the upgrade such as the tenants not able to provision
 because
-of wrong `persistent volume claims` (this happens if you don't add the zone name) or MinIO not able to `read/write` on
+of wrong `persistent volume claims` (this happens if you don't add the zone name) or Hanzo S3 not able to `read/write` on
 existing volumes (this happens if you don't add the right `securityContext`) or they will take too long to start.
 
-### Upgrade MinIO Operator and Upgrade tenants
+### Upgrade Hanzo S3 Operator and Upgrade tenants
 
 Once all your tenants are prepared for the upgrade it's time to upgrade Operator:
 
 ```bash
-kubectl apply -k github.com/minio/operator/\?ref\=v4.4.18
+kubectl apply -k github.com/hanzos3/operator/\?ref\=v4.4.18
 ```
 
-The above command will update the MinIO `Tenant CRD`, update the MinIO Operator `image` and trigger the upgrade for each
+The above command will update the `Tenant CRD`, update the Hanzo S3 Operator `image` and trigger the upgrade for each
 existing tenant.
 
 ---
 
-# Upgrade MinIO Operator via Helm Charts
+# Upgrade Hanzo S3 Operator via Helm Charts
 
 Make sure your current version of the `tenants.minio.min.io` `CRD` includes the necessary `labels` and `annotations`
 for `Helm`

@@ -6,7 +6,7 @@ metadata:
 spec:
   users:
     - name: storage-user
-  ## Add environment variables to be set in MinIO container (https://github.com/minio/minio/tree/master/docs/config)
+  ## Add environment variables to be set in Hanzo S3 container (https://github.com/minio/minio/tree/master/docs/config)
   env:
     - name: MINIO_IDENTITY_LDAP_SERVER_ADDR
       value: "openldap.tenant-external-idp-ldap.svc.cluster.local:389"

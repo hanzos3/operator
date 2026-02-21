@@ -1,9 +1,9 @@
-By contributing to operator, you agree to assign the copyright to MinIO.
+By contributing to this operator, you agree to assign the copyright to Hanzo AI, Inc.
 
 The contributed source files should have the following notice:
 
 ```
-// Copyright (C) YYYY, MinIO, Inc.
+// Copyright (C) YYYY, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,

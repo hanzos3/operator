@@ -477,7 +477,7 @@ jobs:
             ./sidecar/minio-operator-sidecar
           key: ${{ runner.os }}-sidecar-binary-${{ github.run_id }}
       # Runs a set of commands using the runners shell
-      - name: Deploy a MinIO Tenant on Kind
+      - name: Deploy a Hanzo S3 Tenant on Kind
         run: |
           curl -sLO "https://dl.k8s.io/release/v1.30.10/bin/linux/amd64/kubectl" -o kubectl
           chmod +x kubectl
@@ -514,7 +514,7 @@ jobs:
             ./sidecar/minio-operator-sidecar
           key: ${{ runner.os }}-sidecar-binary-${{ github.run_id }}
       # Runs a set of commands using the runners shell
-      - name: Deploy a MinIO Tenant on Kind
+      - name: Deploy a Hanzo S3 Tenant on Kind
         env:
           TEST_FLOOR: true
         run: |

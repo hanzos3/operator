@@ -12,7 +12,7 @@ Then monitor the status of the decommissioned pool
 mc admin decom status myminio/
 ```
 
-More details documentation available [here](https://min.io/docs/minio/linux/operations/install-deploy-manage/decommission-server-pool.html)
+More details documentation available [here](https://s3.hanzo.ai/docs/minio/linux/operations/install-deploy-manage/decommission-server-pool.html)
 
 ### Update `tenant.yaml`
 

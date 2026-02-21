@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2023 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2023 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -64,7 +64,7 @@ func StartSideCar(tenantName string, secretName string) {
 
 	controllerClient, err := clientset.NewForConfig(cfg)
 	if err != nil {
-		klog.Fatalf("Error building MinIO clientset: %s", err.Error())
+		klog.Fatalf("Error building Hanzo S3 clientset: %s", err.Error())
 	}
 
 	namespace := v2.GetNSFromFile()
@@ -209,7 +209,7 @@ func (c *Controller) regenCfgWithTenant(tenant *v2.Tenant) {
 
 	if !rootUserFound || !rootPwdFound {
 		log.Println("Missing root credentials in the configuration.")
-		log.Println("MinIO won't start")
+		log.Println("Hanzo S3 won't start")
 		os.Exit(1)
 	}
 
@@ -232,7 +232,7 @@ func (c *Controller) regenCfgWithSecret(configSecret *corev1.Secret) {
 
 	if !rootUserFound || !rootPwdFound {
 		log.Println("Missing root credentials in the configuration.")
-		log.Println("MinIO won't start")
+		log.Println("Hanzo S3 won't start")
 		os.Exit(1)
 	}
 

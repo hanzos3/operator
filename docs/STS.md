@@ -1,19 +1,19 @@
-# MinIO Operator STS
+# Hanzo S3 Operator STS
 
 **Native IAM Authentication for Kubernetes.**
 
 > ⚠️ This feature is an Beta release starting Operator v6.x, was released in Beta on Operator v5.x
 
-MinIO Operator offers support
-for [Secure Tokens](https://min.io/docs/minio/linux/developers/security-token-service.html?ref=op-gh) (a.k.a. STS) which
+Hanzo S3 Operator offers support
+for [Secure Tokens](https://s3.hanzo.ai/docs/minio/linux/developers/security-token-service.html?ref=op-gh) (a.k.a. STS) which
 are a
 form of temporary access credentials for your
-MinIO Tenant. In essence, this allows you to control access to your MinIO tenant from your applications without having to
+Hanzo S3 Tenant. In essence, this allows you to control access to your Hanzo S3 tenant from your applications without having to
 explicitly create credentials for each application; in fact no credentials need to be created at all.
 
 # Authorization Flow
 
-For an application to gain access into a MinIO Tenant, a `PolicyBinding` granting explicit access to the application's
+For an application to gain access into a Hanzo S3 Tenant, a `PolicyBinding` granting explicit access to the application's
 [Service Account](https://kubernetes.io/docs/concepts/security/service-accounts/). Authorization is then validated
 using the following steps:
 

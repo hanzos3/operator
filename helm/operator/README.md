@@ -1,21 +1,20 @@
-# MinIO ![license](https://img.shields.io/badge/license-AGPL%20V3-blue)
+# Hanzo S3 ![license](https://img.shields.io/badge/license-AGPL%20V3-blue)
 
-[MinIO](https://min.io) is a High Performance Object Storage released under GNU AGPLv3 or later. It is API compatible
-with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics
-and application data workloads.
+[Hanzo S3](https://s3.hanzo.ai) is a high-performance, S3-compatible object storage system released under GNU AGPLv3 or later.
+Use Hanzo S3 to build high-performance infrastructure for machine learning, analytics, and application data workloads.
 
-For more detailed documentation please visit [here](https://docs.minio.io/)
+For more detailed documentation please visit [here](https://s3.hanzo.ai/docs)
 
 Introduction
 ------------
 
-This chart bootstraps MinIO Operator on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps the Hanzo S3 Operator on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-Configure MinIO Helm repo
+Configure Helm repo
 --------------------
 
 ```bash
-helm repo add minio https://operator.min.io/
+helm repo add hanzos3 https://hanzos3.github.io/operator
 ```
 
 Installing the Chart
@@ -27,19 +26,19 @@ Install this chart using:
 helm install \
   --namespace minio-operator \
   --create-namespace \
-  minio-operator minio/operator
+  minio-operator hanzos3/operator
 ```
 
-The command deploys MinIO Operator on the Kubernetes cluster in the default configuration.
+The command deploys the Hanzo S3 Operator on the Kubernetes cluster in the default configuration.
 
 Creating a Tenant
 -----------------
 
-Once the MinIO Operator Chart is successfully installed, create a MinIO Tenant using:
+Once the Hanzo S3 Operator Chart is successfully installed, create a tenant using:
 
 ```bash
 helm install --namespace tenant-ns \
-  --create-namespace tenant minio/tenant
+  --create-namespace tenant hanzos3/tenant
 ```
 
-This creates a 4 Node MinIO Tenant (cluster). To change the default values, take a look at various [values.yaml](https://github.com/minio/operator/blob/master/helm/tenant/values.yaml).
+This creates a 4-node tenant (cluster). To change the default values, take a look at various [values.yaml](https://github.com/hanzos3/operator/blob/main/helm/tenant/values.yaml).

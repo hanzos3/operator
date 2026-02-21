@@ -1,4 +1,4 @@
-// Copyright (C) 2020-2023 MinIO, Inc.
+// Copyright (C) 2020-2023 Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -83,7 +83,7 @@ const (
 	ErrResourceExists = "ErrResourceExists"
 	// MessageResourceExists is the message used for Events when a Tenant
 	// fails to sync due to a StatefulSet already existing
-	MessageResourceExists = "Resource %q already exists and is not managed by MinIO Operator"
+	MessageResourceExists = "Resource %q already exists and is not managed by Hanzo S3 Operator"
 )
 
 // Standard Events for Tenant
@@ -95,32 +95,32 @@ const (
 // Standard Status messages for Tenant
 const (
 	StatusInitialized                = "Initialized"
-	StatusProvisioningCIService      = "Provisioning MinIO Cluster IP Service"
-	StatusProvisioningHLService      = "Provisioning MinIO Headless Service"
-	StatusProvisioningStatefulSet    = "Provisioning MinIO Statefulset"
+	StatusProvisioningCIService      = "Provisioning Hanzo S3 Cluster IP Service"
+	StatusProvisioningHLService      = "Provisioning Hanzo S3 Headless Service"
+	StatusProvisioningStatefulSet    = "Provisioning Hanzo S3 Statefulset"
 	StatusProvisioningConsoleService = "Provisioning Console Service"
 	StatusProvisioningKESStatefulSet = "Provisioning KES StatefulSet"
 	StatusProvisioningInitialUsers   = "Provisioning initial users"
 	StatusWaitingMinIOIsHealthy      = "Waiting for Tenant to be healthy"
 	StatusProvisioningDefaultBuckets = "Provisioning default buckets"
-	StatusWaitingMinIOCert           = "Waiting for MinIO TLS Certificate"
-	StatusWaitingMinIOClientCert     = "Waiting for MinIO TLS Client Certificate"
+	StatusWaitingMinIOCert           = "Waiting for Hanzo S3 TLS Certificate"
+	StatusWaitingMinIOClientCert     = "Waiting for Hanzo S3 TLS Client Certificate"
 	StatusWaitingKESCert             = "Waiting for KES TLS Certificate"
-	StatusUpdatingMinIOVersion       = "Updating MinIO Version"
+	StatusUpdatingMinIOVersion       = "Updating Hanzo S3 Version"
 	StatusUpdatingKES                = "Updating KES"
 	StatusNotOwned                   = "Statefulset not controlled by operator"
-	StatusFailedAlreadyExists        = "Another MinIO Tenant already exists in the namespace"
+	StatusFailedAlreadyExists        = "Another Hanzo S3 Tenant already exists in the namespace"
 	StatusTenantCredentialsNotSet    = "Tenant credentials are not set properly"
-	StatusInconsistentMinIOVersions  = "Different versions across MinIO Pools"
-	StatusRestartingMinIO            = "Restarting MinIO"
+	StatusInconsistentMinIOVersions  = "Different versions across Hanzo S3 Pools"
+	StatusRestartingMinIO            = "Restarting Hanzo S3"
 	StatusDecommissioningNotAllowed  = "Pool Decommissioning Not Allowed"
 )
 
-// ErrMinIONotReady is the error returned when MinIO is not Ready
-var ErrMinIONotReady = fmt.Errorf("MinIO is not ready")
+// ErrMinIONotReady is the error returned when Hanzo S3 is not ready
+var ErrMinIONotReady = fmt.Errorf("Hanzo S3 is not ready")
 
-// ErrMinIORestarting is the error returned when MinIO is restarting
-var ErrMinIORestarting = fmt.Errorf("MinIO is restarting")
+// ErrMinIORestarting is the error returned when Hanzo S3 is restarting
+var ErrMinIORestarting = fmt.Errorf("Hanzo S3 is restarting")
 
 // Controller struct watches the Kubernetes API for changes to Tenant resources
 type Controller struct {
@@ -816,7 +816,7 @@ func (c *Controller) syncHandler(key string) (Result, error) {
 
 	tenant.EnsureDefaults()
 
-	// Validate the MinIO Tenant
+	// Validate the Hanzo S3 Tenant
 	if err = tenant.Validate(); err != nil {
 		klog.V(2).Infof(err.Error())
 		var err2 error
@@ -897,7 +897,7 @@ func (c *Controller) syncHandler(key string) (Result, error) {
 		return WrapResult(Result{}, err)
 	}
 
-	// List all MinIO Tenants in this namespace.
+	// List all Hanzo S3 Tenants in this namespace.
 	li, err := c.minioClientSet.MinioV2().Tenants(tenant.Namespace).List(context.Background(), metav1.ListOptions{})
 	if err != nil {
 		return WrapResult(Result{}, err)

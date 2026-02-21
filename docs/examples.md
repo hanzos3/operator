@@ -1,16 +1,16 @@
 # Tenant deployment examples with kustomize
 
 This document explains various yaml files listed in
-the [examples directory](https://github.com/minio/operator/tree/master/examples/kustomization) used to deploy a Tenant
-using MinIO Operator.
+the [examples directory](https://github.com/hanzos3/operator/tree/master/examples/kustomization) used to deploy a Tenant
+using Hanzo S3 Operator.
 
 ### Prerequisites
 
 - kustomize/v4.3.0 https://kubectl.docs.kubernetes.io/installation/kustomize/
 
-## MinIO Tenant with AutoCert TLS
+## Hanzo S3 Tenant with AutoCert TLS
 
-MinIO Operator can automatically generate TLS secrets and mount these secrets to the MinIO, Console, and/or KES pods (
+Hanzo S3 Operator can automatically generate TLS secrets and mount these secrets to the Hanzo S3, Console, and/or KES pods (
 enabled by default). To disable this, set the `requestAutoCert` field to `false`.
 
 You can deploy the pre-configured example by running the following command:
@@ -19,9 +19,9 @@ You can deploy the pre-configured example by running the following command:
 kustomize examples/kustomization/base | kubectl apply -f -
 ```
 
-## MinIO Tenant with Encryption enabled using Vault KMS
+## Hanzo S3 Tenant with Encryption enabled using Vault KMS
 
-This example will deploy a MinIO tenant with Server Side Encryption using KES and Hashicorp Vault.
+This example will deploy a Hanzo S3 tenant with Server Side Encryption using KES and Hashicorp Vault.
 
 ### Prerequisites
 
@@ -55,7 +55,7 @@ You can deploy a preconfigured example by running the following command:
 kustomize build examples/kustomization/tenant-kes-encryption | kubectl apply -f -
 ```
 
-Verify data is encrypted by connecting directly to MinIO via `ingress controller` or using port-forward:
+Verify data is encrypted by connecting directly to Hanzo S3 via `ingress controller` or using port-forward:
 
 ```$xslt
 kubectl port-forward svc/minio 9000:443 -n tenant-kms-encrypted
@@ -66,9 +66,9 @@ Key: my-minio-key
    - Decryption ✔
 ```
 
-## MinIO Tenant with TLS via customer provided certificates
+## Hanzo S3 Tenant with TLS via customer provided certificates
 
-This example will deploy a MinIO tenant with TLS using certificates provided by the user.
+This example will deploy a Hanzo S3 tenant with TLS using certificates provided by the user.
 
 ### Prerequisites
 
@@ -83,7 +83,7 @@ This example will deploy a MinIO tenant with TLS using certificates provided by 
     mkcert "*.myminio-hl.minio-tenant.svc.cluster.local"
   ```
 
-`MinIO` will use `*.minio-tenant.svc.cluster.local`, `*.myminio.minio-tenant.svc.cluster.local`
+`Hanzo S3` will use `*.minio-tenant.svc.cluster.local`, `*.myminio.minio-tenant.svc.cluster.local`
 and `*.myminio-hl.minio-tenant.svc.cluster.local` certificates for
 inter-node communication.
 
@@ -116,12 +116,12 @@ You can deploy a preconfigured example by running the following command:
 kustomize build examples/kustomization/base | kubectl apply -f -
 ```
 
-You can include all the certificates that you want in your Tenant and `MinIO` will serve them to its client
+You can include all the certificates that you want in your Tenant and `Hanzo S3` will serve them to its client
 via [SNI](https://en.wikipedia.org/wiki/Server_Name_Indication)
 
-## MinIO Tenant with TLS via customer provided certificates and Encryption enabled via Vault KMS
+## Hanzo S3 Tenant with TLS via customer provided certificates and Encryption enabled via Vault KMS
 
-This example will deploy a minio tenant using mTLS certificates (authentication between `MinIO` and `KES`) provided by
+This example will deploy a minio tenant using mTLS certificates (authentication between `Hanzo S3` and `KES`) provided by
 the user, the data will be encrypted at rest
 
 ### Prerequisites
@@ -131,7 +131,7 @@ the user, the data will be encrypted at rest
 - Assuming your Tenant name is `myminio` and namespace is `tenant-kms-encrypted` create all the certificates and
   secrets as in the previous step
 - Generate new `KES` identity keypair (https://github.com/minio/kes), this is needed it for the authentication, `mTLS`
-  between `MinIO` and `KES`:
+  between `Hanzo S3` and `KES`:
 
   ```sh
     kes tool identity new --key="./app.key" --cert="app.cert" app
@@ -174,9 +174,9 @@ You can deploy a pre-configured example by running the following command:
 kustomize build examples/kustomization/tenant-kes-encryption | kubectl apply -f -
 ```
 
-## MinIO Tenant with Services expose through NodePort
+## Hanzo S3 Tenant with Services expose through NodePort
 
-MinIO Operator can automatically generate `LoadBalancer` and `ClusterIP` type services when deploying tenants, however
+Hanzo S3 Operator can automatically generate `LoadBalancer` and `ClusterIP` type services when deploying tenants, however
 there is one more way to expose your services in case you don't want to deal with `load balancers` or `ingress`
 configurations and
 that is `NodePort`. NodePort type services will be accessible by opening a port on each Kubernetes cluster node, read
@@ -189,6 +189,6 @@ kustomize build examples/kustomization/tenant-nodeport  | kubectl apply -f -
 ### Additional Examples
 
 For additional examples on how to deploy a tenant
-with [LDAP](https://min.io/docs/minio/kubernetes/upstream/operations/external-iam/configure-ad-ldap-external-identity-management.html)
-or [OIDC](https://min.io/docs/minio/kubernetes/upstream/operations/external-iam/configure-openid-external-identity-management.html)
-you can look at the [examples directory](https://github.com/minio/operator/tree/master/examples/kustomization)
+with [LDAP](https://s3.hanzo.ai/docs/minio/kubernetes/upstream/operations/external-iam/configure-ad-ldap-external-identity-management.html)
+or [OIDC](https://s3.hanzo.ai/docs/minio/kubernetes/upstream/operations/external-iam/configure-openid-external-identity-management.html)
+you can look at the [examples directory](https://github.com/hanzos3/operator/tree/master/examples/kustomization)

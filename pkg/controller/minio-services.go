@@ -1,4 +1,4 @@
-// Copyright (C) 2022, MinIO, Inc.
+// Copyright (C) 2022, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -28,7 +28,7 @@ import (
 	"k8s.io/klog/v2"
 )
 
-// checkMinIOSvc validates the existence of the MinIO service and validate it's status against what the specification
+// checkMinIOSvc validates the existence of the Hanzo S3 service and validate it's status against what the specification
 // states
 func (c *Controller) checkMinIOSvc(ctx context.Context, tenant *miniov2.Tenant, nsName types.NamespacedName) error {
 	// Handle the Internal ClusterIP Service for Tenant

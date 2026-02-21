@@ -1,4 +1,4 @@
-// Copyright (C) 2020, MinIO, Inc.
+// Copyright (C) 2020, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -20,7 +20,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// Tenant is a https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/[Kubernetes object] describing a MinIO Tenant. +
+// Tenant is a https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/[Kubernetes object] describing a Hanzo S3 Tenant. +
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +k8s:defaulter-gen=true
@@ -40,14 +40,14 @@ type Tenant struct {
 	Scheduler TenantScheduler `json:"scheduler,omitempty"`
 	// *Required* +
 	//
-	// The root field for the MinIO Tenant object.
+	// The root field for the Hanzo S3 Tenant object.
 	Spec TenantSpec `json:"spec"`
 	// Status provides details of the state of the Tenant
 	// +optional
 	Status TenantStatus `json:"status"`
 }
 
-// TenantScheduler (`scheduler`) - Object describing Kubernetes Scheduler to use for deploying the MinIO Tenant.
+// TenantScheduler (`scheduler`) - Object describing Kubernetes Scheduler to use for deploying the Hanzo S3 Tenant.
 type TenantScheduler struct {
 	// *Optional* +
 	//
@@ -63,18 +63,18 @@ type Bucket struct {
 }
 
 // TenantDomains (`domains`) - List of domains used to access the tenant from outside the kubernetes clusters.
-// this will only configure MinIO for the domains listed, but external DNS configuration is still needed.
+// this will only configure Hanzo S3 for the domains listed, but external DNS configuration is still needed.
 // The listed domains should include schema and port if any is used, i.e. https://minio.domain.com:8123
 type TenantDomains struct {
-	// List of Domains used by MinIO. This will enable DNS style access to the object store where the bucket name is
+	// List of Domains used by Hanzo S3. This will enable DNS style access to the object store where the bucket name is
 	// inferred from a subdomain in the domain.
 	Minio []string `json:"minio,omitempty"`
-	// Domain used to expose the MinIO Console, this will configure the redirect on MinIO when visiting from the browser
+	// Domain used to expose the Hanzo S3 Console, this will configure the redirect on Hanzo S3 when visiting from the browser
 	// If Console is exposed via a subpath, the domain should include it, i.e. https://console.domain.com:8123/subpath/
 	Console string `json:"console,omitempty"`
 }
 
-// Features (`features`) - Object describing which MinIO features to enable/disable in the MinIO Tenant. +
+// Features (`features`) - Object describing which Hanzo S3 features to enable/disable in the Hanzo S3 Tenant. +
 type Features struct {
 	// *Optional* +
 	//
@@ -83,18 +83,18 @@ type Features struct {
 	BucketDNS bool `json:"bucketDNS,omitempty"`
 	// *Optional* +
 	//
-	// Specify a list of domains used to access MinIO and Console.
+	// Specify a list of domains used to access Hanzo S3 and Console.
 	//
 	Domains *TenantDomains `json:"domains,omitempty"`
 	// *Optional* +
 	//
-	// Starts minio server with SFTP support
+	// Starts Hanzo S3 server with SFTP support
 	EnableSFTP *bool `json:"enableSFTP,omitempty"`
 }
 
-// TenantSpec (`spec`) defines the configuration of a MinIO Tenant object. +
+// TenantSpec (`spec`) defines the configuration of a Hanzo S3 Tenant object. +
 //
-// The following parameters are specific to the `minio.min.io/v2` MinIO CRD API `spec` definition added as part of the MinIO Operator v4.0.0. +
+// The following parameters are specific to the .minio.min.io/v2. Hanzo S3 CRD API `spec` definition added as part of the Hanzo S3 Operator v4.0.0. +
 //
 // For more complete documentation on this object, see the https://min.io/docs/minio/kubernetes/upstream/operations/installation.html[MinIO Kubernetes Documentation]. +
 type TenantSpec struct {
@@ -102,11 +102,11 @@ type TenantSpec struct {
 	// +listType=map
 	// +listMapKey=name
 	//
-	// An array of objects describing each MinIO server pool deployed in the MinIO Tenant. Each pool consists of a set of MinIO server pods which "pool" their storage resources for supporting object storage and retrieval requests. Each server pool is independent of all others and supports horizontal scaling of available storage resources in the MinIO Tenant. +
+	// An array of objects describing each Hanzo S3 server pool deployed in the Hanzo S3 Tenant. Each pool consists of a set of Hanzo S3 server pods which "pool" their storage resources for supporting object storage and retrieval requests. Each server pool is independent of all others and supports horizontal scaling of available storage resources in the Hanzo S3 Tenant. +
 	//
-	// The MinIO Tenant `spec` *must have* at least *one* element in the `pools` array. +
+	// The Hanzo S3 Tenant `spec` *must have* at least *one* element in the `pools` array. +
 	//
-	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html[MinIO Operator CRD] reference for the `pools` object for examples and more complete documentation.
+	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html[Hanzo S3 Operator CRD] reference for the `pools` object for examples and more complete documentation.
 	Pools []Pool `json:"pools"`
 	// *Optional* +
 	//
@@ -126,15 +126,15 @@ type TenantSpec struct {
 	PodManagementPolicy appsv1.PodManagementPolicyType `json:"podManagementPolicy,omitempty"`
 	// *Optional* +
 	//
-	// If provided, the MinIO Operator adds the specified environment variables when deploying the Tenant resource.
+	// If provided, the Hanzo S3 Operator adds the specified environment variables when deploying the Tenant resource.
 	// +optional
 	Env []corev1.EnvVar `json:"env,omitempty"`
 
 	// *Optional* +
 	//
-	// Enables TLS with SNI support on each MinIO pod in the tenant. If `externalCertSecret` is omitted *and* `requestAutoCert` is set to `false`, the MinIO Tenant deploys *without* TLS enabled. +
+	// Enables TLS with SNI support on each Hanzo S3 pod in the tenant. If `externalCertSecret` is omitted *and* `requestAutoCert` is set to `false`, the Hanzo S3 Tenant deploys *without* TLS enabled. +
 	//
-	// Specify an array of https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secrets]. The MinIO Operator copies the specified certificates to every MinIO server pod in the tenant. When the MinIO pod/service responds to a TLS connection request, it uses SNI to select the certificate with matching `subjectAlternativeName`. +
+	// Specify an array of https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secrets]. The Hanzo S3 Operator copies the specified certificates to every Hanzo S3 server pod in the tenant. When the Hanzo S3 pod/service responds to a TLS connection request, it uses SNI to select the certificate with matching `subjectAlternativeName`. +
 	//
 	// Each element in the `externalCertSecret` array is an object containing the following fields: +
 	//
@@ -142,14 +142,14 @@ type TenantSpec struct {
 	//
 	// * - `type` - Specify `kubernetes.io/tls` +
 	//
-	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#create-tenant-security-section[MinIO Operator CRD] reference for examples and more complete documentation on configuring TLS for MinIO Tenants.
+	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#create-tenant-security-section[Hanzo S3 Operator CRD] reference for examples and more complete documentation on configuring TLS for Hanzo S3 Tenants.
 	// +optional
 	ExternalCertSecret []*LocalCertificateReference `json:"externalCertSecret,omitempty"`
 	// *Optional* +
 	//
-	// Allows MinIO server pods to verify client TLS certificates signed by a Certificate Authority not in the pod's trust store. +
+	// Allows Hanzo S3 server pods to verify client TLS certificates signed by a Certificate Authority not in the pod's trust store. +
 	//
-	// Specify an array of https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secrets]. The MinIO Operator copies the specified certificates to every MinIO server pod in the tenant. +
+	// Specify an array of https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secrets]. The Hanzo S3 Operator copies the specified certificates to every Hanzo S3 server pod in the tenant. +
 	//
 	// Each element in the `externalCertSecret` array is an object containing the following fields: +
 	//
@@ -157,14 +157,14 @@ type TenantSpec struct {
 	//
 	// * - `type` - Specify `kubernetes.io/tls`. +
 	//
-	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#create-tenant-security-section[MinIO Operator CRD] reference for examples and more complete documentation on configuring TLS for MinIO Tenants.
+	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#create-tenant-security-section[Hanzo S3 Operator CRD] reference for examples and more complete documentation on configuring TLS for Hanzo S3 Tenants.
 	// +optional
 	ExternalCaCertSecret []*LocalCertificateReference `json:"externalCaCertSecret,omitempty"`
 	// *Optional* +
 	//
-	// Enables mTLS authentication between the MinIO Tenant pods and https://github.com/minio/kes[MinIO KES]. *Required* for enabling connectivity between the MinIO Tenant and MinIO KES. +
+	// Enables mTLS authentication between the Hanzo S3 Tenant pods and https://github.com/minio/kes[MinIO KES]. *Required* for enabling connectivity between the Hanzo S3 Tenant and MinIO KES. +
 	//
-	// Specify a https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secrets]. The MinIO Operator copies the specified certificate to every MinIO server pod in the tenant. The secret *must* contain the following fields: +
+	// Specify a https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secrets]. The Hanzo S3 Operator copies the specified certificate to every Hanzo S3 server pod in the tenant. The secret *must* contain the following fields: +
 	//
 	// * `name` - The name of the Kubernetes secret containing the TLS certificate. +
 	//
@@ -172,15 +172,15 @@ type TenantSpec struct {
 	//
 	// The specified certificate *must* correspond to an identity on the KES server. See the https://github.com/minio/kes/wiki/Configuration#policy-configuration[KES Wiki] for more information on KES identities. +
 	//
-	// If deploying KES with the MinIO Operator, include the hash of the certificate as part of the <<k8s-api-github-com-minio-operator-pkg-apis-minio-min-io-v2-kesconfig,`kes`>> object specification. +
+	// If deploying KES with the Hanzo S3 Operator, include the hash of the certificate as part of the <<k8s-api-github-com-minio-operator-pkg-apis-minio-min-io-v2-kesconfig,`kes`>> object specification. +
 	//
-	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#create-tenant-security-section[MinIO Operator CRD] reference for examples and more complete documentation on configuring TLS for MinIO Tenants.
+	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#create-tenant-security-section[Hanzo S3 Operator CRD] reference for examples and more complete documentation on configuring TLS for Hanzo S3 Tenants.
 	//
 	// +optional
 	ExternalClientCertSecret *LocalCertificateReference `json:"externalClientCertSecret,omitempty"`
 	// *Optional* +
 	//
-	// Provide support for mounting additional client certificate into MinIO Tenant pods
+	// Provide support for mounting additional client certificate into Hanzo S3 Tenant pods
 	// Multiple client certificates will be mounted using the following folder structure: +
 	//
 	//* certs +
@@ -203,7 +203,7 @@ type TenantSpec struct {
 	//
 	//* * *  client.key +
 	//
-	// Specify a https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secrets]. The MinIO Operator copies the specified certificate to every MinIO server pod in the tenant that later can be referenced using environment variables. The secret *must* contain the following fields: +
+	// Specify a https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secrets]. The Hanzo S3 Operator copies the specified certificate to every Hanzo S3 server pod in the tenant that later can be referenced using environment variables. The secret *must* contain the following fields: +
 	//
 	// * `name` - The name of the Kubernetes secret containing the TLS certificate. +
 	//
@@ -213,7 +213,7 @@ type TenantSpec struct {
 	ExternalClientCertSecrets []*LocalCertificateReference `json:"externalClientCertSecrets,omitempty"`
 	// *Optional* +
 	//
-	// Mount path for MinIO volume (PV). Defaults to `/export`
+	// Mount path for Hanzo S3 volume (PV). Defaults to `/export`
 	// +optional
 	Mountpath string `json:"mountPath,omitempty"`
 	// *Optional* +
@@ -223,15 +223,15 @@ type TenantSpec struct {
 	Subpath string `json:"subPath,omitempty"`
 	// *Optional* +
 	//
-	// Enables using https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/[Kubernetes-based TLS certificate generation] and signing for pods and services in the MinIO Tenant. +
+	// Enables using https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/[Kubernetes-based TLS certificate generation] and signing for pods and services in the Hanzo S3 Tenant. +
 	//
 	// * Specify `true` to explicitly enable automatic certificate generate (Default). +
 	//
 	// * Specify `false` to disable automatic certificate generation. +
 	//
-	// If `requestAutoCert` is set to `false` *and* `externalCertSecret` is omitted, the MinIO Tenant deploys *without* TLS enabled.
+	// If `requestAutoCert` is set to `false` *and* `externalCertSecret` is omitted, the Hanzo S3 Tenant deploys *without* TLS enabled.
 	//
-	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#create-tenant-security-section[MinIO Operator CRD] reference for examples and more complete documentation on configuring TLS for MinIO Tenants.
+	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#create-tenant-security-section[Hanzo S3 Operator CRD] reference for examples and more complete documentation on configuring TLS for Hanzo S3 Tenants.
 	// +optional
 	RequestAutoCert *bool `json:"requestAutoCert,omitempty"`
 
@@ -264,14 +264,14 @@ type TenantSpec struct {
 	CertConfig *CertificateConfig `json:"certConfig,omitempty"`
 	// *Optional* +
 	//
-	// Directs the MinIO Operator to deploy the https://github.com/minio/kes[MinIO Key Encryption Service] (KES) using the specified configuration. The MinIO KES supports performing server-side encryption of objects on the MiNIO Tenant. +
+	// Directs the Hanzo S3 Operator to deploy the https://github.com/minio/kes[MinIO Key Encryption Service] (KES) using the specified configuration. The MinIO KES supports performing server-side encryption of objects on the MiNIO Tenant. +
 	//
 	//
 	//+optional
 	KES *KESConfig `json:"kes,omitempty"`
 	// *Optional* +
 	//
-	// Directs the MinIO Operator to use prometheus operator. +
+	// Directs the Hanzo S3 Operator to use prometheus operator. +
 	//
 	// Tenant scrape configuration will be added to prometheus managed by the prometheus-operator.
 	//+optional
@@ -320,7 +320,7 @@ type TenantSpec struct {
 	ExposeServices *ExposeServices `json:"exposeServices,omitempty"`
 	// *Optional* +
 	//
-	// Specify custom labels and annotations to append to the MinIO service and/or Console service.
+	// Specify custom labels and annotations to append to the Hanzo S3 service and/or Console service.
 	// +optional
 	ServiceMetadata *ServiceMetadata `json:"serviceMetadata,omitempty"`
 	// *Optional* +
@@ -389,12 +389,12 @@ type Logging struct {
 type ServiceMetadata struct {
 	// *Optional* +
 	//
-	// If provided, append these labels to the MinIO service
+	// If provided, append these labels to the Hanzo S3 service
 	// +optional
 	MinIOServiceLabels map[string]string `json:"minioServiceLabels,omitempty"`
 	// *Optional* +
 	//
-	// If provided, append these annotations to the MinIO service
+	// If provided, append these annotations to the Hanzo S3 service
 	// +optional
 	MinIOServiceAnnotations map[string]string `json:"minioServiceAnnotations,omitempty"`
 	// *Optional* +
@@ -433,7 +433,7 @@ type PoolsMetadata struct {
 	Annotations map[string]string `json:"annotations,omitempty"`
 }
 
-// LocalCertificateReference (`externalCertSecret`, `externalCaCertSecret`,`clientCertSecret`) contains a Kubernetes secret containing TLS certificates or Certificate Authority files for use with enabling TLS in the MinIO Tenant. +
+// LocalCertificateReference (`externalCertSecret`, `externalCaCertSecret`,`clientCertSecret`) contains a Kubernetes secret containing TLS certificates or Certificate Authority files for use with enabling TLS in the Hanzo S3 Tenant. +
 type LocalCertificateReference struct {
 	// *Required* +
 	//
@@ -449,12 +449,12 @@ type LocalCertificateReference struct {
 type ExposeServices struct {
 	// *Optional* +
 	//
-	// Directs the Operator to expose the MinIO service. Defaults to `false`. +
+	// Directs the Operator to expose the Hanzo S3 service. Defaults to `false`. +
 	// +optional
 	MinIO bool `json:"minio,omitempty"`
 	// *Optional* +
 	//
-	// Directs the Operator to expose the MinIO Console service. Defaults to `false`. +
+	// Directs the Operator to expose the Hanzo S3 Console service. Defaults to `false`. +
 	// +optional
 	Console bool `json:"console,omitempty"`
 }
@@ -645,9 +645,9 @@ type CustomCertificateConfig struct {
 	SerialNo string `json:"serialNo,omitempty"`
 }
 
-// Pool (`pools`) defines a MinIO server pool on a Tenant. Each pool consists of a set of MinIO server pods which "pool" their storage resources for supporting object storage and retrieval requests. Each server pool is independent of all others and supports horizontal scaling of available storage resources in the MinIO Tenant. +
+// Pool (`pools`) defines a MinIO server pool on a Tenant. Each pool consists of a set of Hanzo S3 server pods which "pool" their storage resources for supporting object storage and retrieval requests. Each server pool is independent of all others and supports horizontal scaling of available storage resources in the Hanzo S3 Tenant. +
 //
-// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#procedure-command-line[MinIO Operator CRD] reference for the `pools` object for examples and more complete documentation. +
+// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#procedure-command-line[Hanzo S3 Operator CRD] reference for the `pools` object for examples and more complete documentation. +
 type Pool struct {
 	// *Required*
 	// +kubebuilder:validation:Required
@@ -659,18 +659,18 @@ type Pool struct {
 	//
 	// The number of MinIO server pods to deploy in the pool. The minimum value is `2`.
 	//
-	// The MinIO Operator requires a minimum of `4` volumes per pool. Specifically, the result of `pools.servers X pools.volumesPerServer` must be greater than `4`. +
+	// The Hanzo S3 Operator requires a minimum of `4` volumes per pool. Specifically, the result of `pools.servers X pools.volumesPerServer` must be greater than `4`. +
 	Servers int32 `json:"servers"`
 	// *Required* +
 	// +kubebuilder:validation:XValidation:rule="self == oldSelf",message="volumesPerServer is immutable"
 	//
 	// The number of Persistent Volume Claims to generate for each MinIO server pod in the pool. +
 	//
-	// The MinIO Operator requires a minimum of `4` volumes per pool. Specifically, the result of `pools.servers X pools.volumesPerServer` must be greater than `4`. +
+	// The Hanzo S3 Operator requires a minimum of `4` volumes per pool. Specifically, the result of `pools.servers X pools.volumesPerServer` must be greater than `4`. +
 	VolumesPerServer int32 `json:"volumesPerServer"`
 	// *Required* +
 	//
-	// Specify the configuration options for the MinIO Operator to use when generating Persistent Volume Claims for the MinIO tenant. +
+	// Specify the configuration options for the Hanzo S3 Operator to use when generating Persistent Volume Claims for the MinIO tenant. +
 	//
 	VolumeClaimTemplate *corev1.PersistentVolumeClaim `json:"volumeClaimTemplate"`
 	// *Optional* +
@@ -769,7 +769,7 @@ type AuditConfig struct {
 	DiskCapacityGB *int `json:"diskCapacityGB,omitempty"`
 }
 
-// KESConfig (`kes`) defines the configuration of the https://github.com/minio/kes[MinIO Key Encryption Service] (KES) StatefulSet deployed as part of the MinIO Tenant. KES supports Server-Side Encryption of objects using an external Key Management Service (KMS). +
+// KESConfig (`kes`) defines the configuration of the https://github.com/minio/kes[MinIO Key Encryption Service] (KES) StatefulSet deployed as part of the Hanzo S3 Tenant. KES supports Server-Side Encryption of objects using an external Key Management Service (KMS). +
 type KESConfig struct {
 	// *Optional* +
 	//
@@ -802,13 +802,13 @@ type KESConfig struct {
 	//
 	// Specify a https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes opaque secret] which contains environment variables to use for setting up the MinIO KES service. +
 	//
-	// See the https://github.com/minio/operator/blob/master/examples/kes-secret.yaml[MinIO Operator `console-secret.yaml`] for an example.
+	// See the https://github.com/minio/operator/blob/master/examples/kes-secret.yaml[Hanzo S3 Operator `console-secret.yaml`] for an example.
 	Configuration *corev1.LocalObjectReference `json:"kesSecret"`
 	// *Optional* +
 	//
 	// Enables TLS with SNI support on each MinIO KES pod in the tenant. If `externalCertSecret` is omitted *and* `spec.requestAutoCert` is set to `false`, MinIO KES pods deploy *without* TLS enabled. +
 	//
-	// Specify a https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secret]. The MinIO Operator copies the specified certificate to every MinIO pod in the tenant. When the MinIO pod/service responds to a TLS connection request, it uses SNI to select the certificate with matching `subjectAlternativeName`. +
+	// Specify a https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes TLS secret]. The Hanzo S3 Operator copies the specified certificate to every MinIO pod in the tenant. When the Hanzo S3 pod/service responds to a TLS connection request, it uses SNI to select the certificate with matching `subjectAlternativeName`. +
 	//
 	// Specify an object containing the following fields: +
 	//
@@ -816,7 +816,7 @@ type KESConfig struct {
 	//
 	// * - `type` - Specify `kubernetes.io/tls` +
 	//
-	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#procedure-command-line[MinIO Operator CRD] reference for examples and more complete documentation on configuring TLS for MinIO Tenants.
+	// See the https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html#procedure-command-line[Hanzo S3 Operator CRD] reference for examples and more complete documentation on configuring TLS for Hanzo S3 Tenants.
 	// +optional
 	ExternalCertSecret *LocalCertificateReference `json:"externalCertSecret,omitempty"`
 	// *Optional* +
@@ -903,7 +903,7 @@ type KESConfig struct {
 	ContainerSecurityContext *corev1.SecurityContext `json:"containerSecurityContext,omitempty"`
 	// *Optional* +
 	//
-	// If provided, the MinIO Operator adds the specified environment variables when deploying the KES resource.
+	// If provided, the Hanzo S3 Operator adds the specified environment variables when deploying the KES resource.
 	// +optional
 	Env []corev1.EnvVar `json:"env,omitempty"`
 }

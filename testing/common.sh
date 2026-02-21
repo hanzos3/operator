@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright (C) 2022, MinIO, Inc.
+# Copyright (C) 2022, Hanzo AI, Inc.
 #
 # This code is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License, version 3,
@@ -194,7 +194,7 @@ function execute_pod_script() {
 function install_minio() {
     echo -e "\n\n"
     echo "################"
-    echo "Installing MinIO"
+    echo "Installing Hanzo S3"
     echo "################"
     echo ""
     rm -rf /usr/local/bin/minio
@@ -312,7 +312,7 @@ function install_tenant_with_minio_version() {
     echo "IMG: ${IMG}"
 
     echo "================================================================"
-    echo "Installing MinIO Tenant"
+    echo "Installing Hanzo S3 Tenant"
     echo "================================================================"
     echo
     echo "TYPE: ${TENANT_TYPE}"

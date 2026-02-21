@@ -5,7 +5,7 @@
 With a Kubernetes cluster (local you can use Kind) in `./` run:
 
 ```
-kubectl apply -k resources/ 
+kubectl apply -k resources/
 kubectl apply -k resources/base/
 ```
 
@@ -16,7 +16,7 @@ That will deploy an operator with a defined image.
 Build an image like:
 
 ```
-make build TAG="minio/operator:<YOUR_TAG>" && kind load docker-image minio/operator:<YOUR_TAG>
+make build TAG="ghcr.io/hanzos3/operator:<YOUR_TAG>" && kind load docker-image ghcr.io/hanzos3/operator:<YOUR_TAG>
 ```
 
 And then use your `TAG` in the `minio-operator` deployment.

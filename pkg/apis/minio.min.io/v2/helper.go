@@ -1,4 +1,4 @@
-// Copyright (C) 2020, MinIO, Inc.
+// Copyright (C) 2020, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -827,7 +827,7 @@ func (z *Pool) Validate(zi int) error {
 	return nil
 }
 
-// Validate returns an error if any configuration of the MinIO Tenant is invalid
+// Validate returns an error if any configuration of the Hanzo S3 Tenant is invalid
 func (t *Tenant) Validate() error {
 	if t.Spec.Pools == nil {
 		return errors.New("pools must be configured")

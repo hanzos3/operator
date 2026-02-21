@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2024 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2024 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -33,7 +33,7 @@ import (
 	"k8s.io/klog/v2"
 )
 
-// Validate checks the configuration on the seeded configuration and issues a valid one for MinIO to
+// Validate checks the configuration on the seeded configuration and issues a valid one for Hanzo S3 to
 // start, however if root credentials are missing, it will exit with error
 func Validate(tenantName string) {
 	namespace := miniov2.GetNSFromFile()
@@ -49,12 +49,12 @@ func Validate(tenantName string) {
 
 	kubeClient, err := kubernetes.NewForConfig(cfg)
 	if err != nil {
-		klog.Fatalf("Error building MinIO operatorClientset: %s", err.Error())
+		klog.Fatalf("Error building Hanzo S3 operatorClientset: %s", err.Error())
 	}
 
 	controllerClient, err := operatorClientset.NewForConfig(cfg)
 	if err != nil {
-		klog.Fatalf("Error building MinIO operatorClientset: %s", err.Error())
+		klog.Fatalf("Error building Hanzo S3 operatorClientset: %s", err.Error())
 	}
 
 	ctx := context.Background()
@@ -77,7 +77,7 @@ func Validate(tenantName string) {
 
 	if !rootUserFound || !rootPwdFound {
 		log.Println("Missing root credentials in the configuration.")
-		log.Println("MinIO won't start")
+		log.Println("Hanzo S3 won't start")
 		os.Exit(1)
 	}
 

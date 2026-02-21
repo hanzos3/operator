@@ -1,4 +1,4 @@
-// Copyright (C) 2020 MinIO, Inc.
+// Copyright (C) 2020 Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -74,12 +74,12 @@ func init() {
 	flag.BoolVar(&checkVersion, "version", false, "print version")
 }
 
-// StartOperator starts the MinIO Operator controller
+// StartOperator starts the Hanzo S3 Operator controller
 func StartOperator(kubeconfig string) {
 	_ = v2.AddToScheme(scheme.Scheme)
 	_ = stsv1beta1.AddToScheme(scheme.Scheme)
 	_ = stsv1alpha1.AddToScheme(scheme.Scheme)
-	klog.Info("Starting MinIO Operator")
+	klog.Info("Starting Hanzo S3 Operator")
 
 	// set up signals, so we handle the first shutdown signal gracefully
 	ctx, cancel := setupSignalHandler(context.Background())
@@ -127,7 +127,7 @@ func StartOperator(kubeconfig string) {
 
 	controllerClient, err := clientset.NewForConfig(cfg)
 	if err != nil {
-		klog.Fatalf("Error building MinIO clientset: %s", err.Error())
+		klog.Fatalf("Error building Hanzo S3 clientset: %s", err.Error())
 	}
 
 	promClient, err := promclientset.NewForConfig(cfg)
@@ -182,7 +182,7 @@ func StartOperator(kubeconfig string) {
 	}
 
 	<-ctx.Done()
-	klog.Info("Shutting down the MinIO Operator")
+	klog.Info("Shutting down the Hanzo S3 Operator")
 	mainController.Stop()
 }
 

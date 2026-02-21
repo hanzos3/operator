@@ -6,13 +6,13 @@ FROM registry.access.redhat.com/ubi9/ubi-micro:latest
 
 ARG TAG
 
-LABEL name="MinIO" \
-      vendor="MinIO Inc <dev@min.io>" \
-      maintainer="MinIO Inc <dev@min.io>" \
+LABEL name="Hanzo S3" \
+      vendor="Hanzo AI, Inc. <dev@hanzo.ai>" \
+      maintainer="Hanzo AI, Inc. <dev@hanzo.ai>" \
       version="${TAG}" \
       release="${TAG}" \
-      summary="MinIO Operator brings native support for MinIO, Console, and Encryption to Kubernetes." \
-      description="MinIO object storage is fundamentally different. Designed for performance and the S3 API, it is 100% open-source. MinIO is ideal for large, private cloud environments with stringent security requirements and delivers mission-critical availability across a diverse range of workloads."
+      summary="Hanzo S3 Operator Sidecar brings native support for S3-compatible object storage and encryption to Kubernetes." \
+      description="Hanzo S3 is a high-performance, S3-compatible object storage system designed for AI infrastructure, private cloud environments, and mission-critical workloads. 100% open-source under AGPLv3."
 
 # On RHEL the certificate bundle is located at:
 # - /etc/pki/tls/certs/ca-bundle.crt (RHEL 6)

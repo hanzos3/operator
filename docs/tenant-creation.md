@@ -13,7 +13,7 @@ We have a base tenant example that can be used to create a tenant. The base tena
 the `examples/kustomization/base` directory and can be used like:
 
 ```shell
-kubectl apply -k github.com/minio/operator/examples/kustomization/base
+kubectl apply -k github.com/hanzos3/operator/examples/kustomization/base
 ```
 
 This will create a tenant with the name `myminio` in the namespace `minio-tenant`. The tenant will have 4 servers and 4
@@ -32,7 +32,7 @@ kind: Kustomization
 namespace: minio-tenant
 
 resources:
-  - github.com/minio/operator/examples/kustomization/base
+  - github.com/hanzos3/operator/examples/kustomization/base
 
 patches:
   - path: tenant.yaml
@@ -50,7 +50,7 @@ spec:
   image: quay.io/minio/minio:RELEASE.2024-03-15T01-07-19Z 
 ```
 
-This will create a tenant with the name `myminio` in the namespace `minio-tenant` with the MinIO version specified in
+This will create a tenant with the name `myminio` in the namespace `minio-tenant` with the Hanzo S3 version specified in
 your overlay.
 
 Assuming you placed the `kustomization.yaml` and `tenant.yaml` in the same directory, you can create the tenant like:
@@ -64,7 +64,7 @@ kubectl apply -k .
 You can create a single static YAML file containing an example tenant as shown below:
 
 ```yaml
-kubectl kustomize github.com/minio/operator/examples/kustomization/base > minio-tenant.yaml
+kubectl kustomize github.com/hanzos3/operator/examples/kustomization/base > minio-tenant.yaml
 ```
 
 The YAML will have all the necessary fields to create a tenant. You can then apply the YAML to create the tenant:

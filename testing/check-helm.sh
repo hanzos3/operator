@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright (C) 2022, MinIO, Inc.
+# Copyright (C) 2022, Hanzo AI, Inc.
 #
 # This code is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License, version 3,

@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2023 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2023 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +25,7 @@ import (
 var validateCmd = cli.Command{
 	Name:    "validate",
 	Aliases: []string{"v"},
-	Usage:   "Start MinIO Operator Config Validator",
+	Usage:   "Start Hanzo S3 Operator Config Validator",
 	Action:  startValidator,
 	Flags: []cli.Flag{
 		cli.StringFlag{

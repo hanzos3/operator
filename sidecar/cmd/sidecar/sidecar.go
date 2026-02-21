@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2024 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2024 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -28,7 +28,7 @@ import (
 var sidecarCmd = cli.Command{
 	Name:    "sidecar",
 	Aliases: []string{"s"},
-	Usage:   "Start MinIO Operator Sidecar",
+	Usage:   "Start Hanzo S3 Operator Sidecar",
 	Action:  startSideCar,
 	Flags: []cli.Flag{
 		cli.StringFlag{

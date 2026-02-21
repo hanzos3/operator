@@ -1,4 +1,4 @@
-// Copyright (C) 2024, MinIO, Inc.
+// Copyright (C) 2024, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -38,7 +38,7 @@ func Resource(resource string) schema.GroupResource {
 }
 
 var (
-	// SchemeBuilder collects the scheme builder functions for the MinIO
+	// SchemeBuilder collects the scheme builder functions for the Hanzo S3
 	// Operator API.
 	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 

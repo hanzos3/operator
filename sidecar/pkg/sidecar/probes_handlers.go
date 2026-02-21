@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2024 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2024 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -51,7 +51,7 @@ func readinessHandler(tenant *v2.Tenant) func(http.ResponseWriter, *http.Request
 	// we do insecure skip verify because we are checking against
 	// the local instance and don't care for the certificate. We
 	// do need to specify a proper server-name (SNI), otherwise the
-	// MinIO server doesn't know which certificate it should offer
+	// Hanzo S3 server doesn't know which certificate it should offer
 	probeHTTPClient := &http.Client{
 		Timeout: time.Millisecond * 500,
 		Transport: &http.Transport{
@@ -67,7 +67,7 @@ func readinessHandler(tenant *v2.Tenant) func(http.ResponseWriter, *http.Request
 		if !tenant.TLS() {
 			schema = "http"
 		}
-		// we only check against the local instance of MinIO
+		// we only check against the local instance of Hanzo S3
 		url := schema + "://localhost:9000/minio/health/live"
 		request, err := http.NewRequest("HEAD", url, nil)
 		if err != nil {
@@ -83,7 +83,7 @@ func readinessHandler(tenant *v2.Tenant) func(http.ResponseWriter, *http.Request
 		defer response.Body.Close()
 		_, _ = io.Copy(io.Discard, response.Body) // Discard body to enable connection reuse
 
-		// we don't care if MinIO is actually handling requests,
+		// we don't care if Hanzo S3 is actually handling requests,
 		// but we only want to know if the service is running
 		fmt.Fprintln(w, "Readiness probe succeeded with HTTP status ", response.StatusCode)
 	}

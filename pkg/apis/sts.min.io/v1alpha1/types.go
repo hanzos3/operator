@@ -1,4 +1,4 @@
-// Copyright (C) 2022, MinIO, Inc.
+// Copyright (C) 2022, Hanzo AI, Inc.
 //
 // This code is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License, version 3,
@@ -29,14 +29,14 @@ import (
 // +groupName=policybinding.sts.min.io
 // +versionName=v1alpha1
 
-// PolicyBinding is a https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/[Kubernetes object] describing a MinIO PolicyBinding.
+// PolicyBinding is a https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/[Kubernetes object] describing a Hanzo S3 PolicyBinding.
 type PolicyBinding struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// *Required* +
 	//
-	// The root field for the MinIO PolicyBinding object.
+	// The root field for the Hanzo S3 PolicyBinding object.
 	Spec PolicyBindingSpec `json:"spec,omitempty"`
 
 	// Status provides details of the state of the PolicyBinding
@@ -59,7 +59,7 @@ type PolicyBindingUsage struct {
 	Authorizations int64 `json:"authotizations,omitempty"`
 }
 
-// PolicyBindingSpec (`spec`) defines the configuration of a MinIO PolicyBinding object. +
+// PolicyBindingSpec (`spec`) defines the configuration of a Hanzo S3 PolicyBinding object. +
 type PolicyBindingSpec struct {
 	// *Required* +
 	//

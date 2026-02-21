@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2023 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2023 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -83,7 +83,7 @@ func parseConfEnvSecret(secret *corev1.Secret) map[string]corev1.EnvVar {
 }
 
 func buildTenantEnvs(tenant *miniov2.Tenant, cfgEnvExisting map[string]corev1.EnvVar) []corev1.EnvVar {
-	// Enable `mc admin update` style updates to MinIO binaries
+	// Enable `mc admin update` style updates to server binaries
 	// within the container, only operator is supposed to perform
 	// these operations.
 	envVarsMap := map[string]corev1.EnvVar{
@@ -128,7 +128,7 @@ func buildTenantEnvs(tenant *miniov2.Tenant, cfgEnvExisting map[string]corev1.En
 	if tenant.HasMinIODomains() {
 		domains = append(domains, tenant.GetDomainHosts()...)
 	}
-	// tell MinIO about all the domains meant to hit it if they are not passed manually via .spec.env
+	// tell the server about all the domains meant to hit it if they are not passed manually via .spec.env
 	if len(domains) > 0 {
 		envVarsMap[miniov2.MinIODomain] = corev1.EnvVar{
 			Name:  miniov2.MinIODomain,

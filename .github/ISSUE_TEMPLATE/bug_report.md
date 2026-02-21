@@ -35,11 +35,11 @@ assignees: ''
 
 ## Regression
 <!-- Is this issue a regression? (Yes / No) -->
-<!-- If Yes, optionally please include minio-operator version caused the regression, if you have these details. -->
+<!-- If Yes, optionally please include hanzo-s3-operator version caused the regression, if you have these details. -->
 
 ## Your Environment
 <!--- Include as many relevant details about the environment you experienced the bug in -->
-* Version used (`minio-operator`):
+* Version used (`hanzo-s3-operator`):
 * Environment name and version (e.g. kubernetes v1.17.2):
 * Server type and version:
 * Operating System and version (`uname -a`):

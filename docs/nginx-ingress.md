@@ -1,31 +1,31 @@
 # Ingress Configuration [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
 Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is
-controlled by rules defined on the Ingress resource. This document explains how to enable Ingress for a MinIO Tenant
+controlled by rules defined on the Ingress resource. This document explains how to enable Ingress for a Hanzo S3 Tenant
 using the [Nginx Ingress Controller](https://kubernetes.github.io/ingress-nginx/).
 
 ## Getting Started
 
 ### Prerequisites
 
-- MinIO Operator up and running as explained in
-  the [document here](https://min.io/docs/minio/kubernetes/upstream/operations/installation.html).
+- Hanzo S3 Operator up and running as explained in
+  the [document here](https://s3.hanzo.ai/docs/minio/kubernetes/upstream/operations/installation.html).
 - Nginx Ingress Controller installed and running as
   explained [here](https://kubernetes.github.io/ingress-nginx/deploy/).
 - Network routing rules that enable external client access to Kubernetes worker nodes. For example, this tutorial
   assumes `minio.example.com` and `console.minio.example.com` as an externally resolvable URL.
 
-### Create MinIO Tenant
+### Create Hanzo S3 Tenant
 
-Create the MinIO tenant if one does not already exist.
-See [Deploy a MinIO Tenant using the MinIO Operator](https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html).
+Create the Hanzo S3 tenant if one does not already exist.
+See [Deploy a Hanzo S3 Tenant using the Hanzo S3 Operator](https://s3.hanzo.ai/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html).
 
-The following example deploys a MinIO Tenant with 4 servers and 16 volumes in total and a total capacity of 16 Terabytes
+The following example deploys a Hanzo S3 Tenant with 4 servers and 16 volumes in total and a total capacity of 16 Terabytes
 into the `minio-tenant` namespace using the default Kubernetes storage class. Change these values as appropriate for
 your requirements.
 
 ```sh
-kubectl apply -k github.com/minio/operator/examples/kustomization/base
+kubectl apply -k github.com/hanzos3/operator/examples/kustomization/base
 ```
 
 ### TLS Certificate
@@ -55,7 +55,7 @@ Tenant.
 ### Create Ingress Rule
 
 Use the `kubectl apply -f ingress.yaml -n tenant1-ns` using the example YAML file below to create the Ingress object in
-the `tenant1-ns` namespace. Once created successfully, you should be able to access the MinIO Tenant from clients
+the `tenant1-ns` namespace. Once created successfully, you should be able to access the Hanzo S3 Tenant from clients
 outside the Kubernetes cluster using the specified hostname on the domain specified in the rule.
 
 ```yaml
@@ -184,8 +184,8 @@ spec:
 
 > Explanation:
 
-* `proxy-read-timeout`: Ensures that NGINX waits for 60 seconds for a response from the MinIO backend before timing out.
+* `proxy-read-timeout`: Ensures that NGINX waits for 60 seconds for a response from the Hanzo S3 backend before timing out.
 
-* `proxy-send-timeout`: Ensures that NGINX waits for 60 seconds for data to be sent to the MinIO backend before timing out.
+* `proxy-send-timeout`: Ensures that NGINX waits for 60 seconds for data to be sent to the Hanzo S3 backend before timing out.
 
 Apply the updated configuration using `kubectl apply -f <file_name>.yaml`. This will set the desired timeouts for read and write operations.

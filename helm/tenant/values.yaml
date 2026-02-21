@@ -1,9 +1,9 @@
-# Root key for MinIO Tenant Chart
+# Root key for Hanzo S3 Tenant Chart
 tenant:
   ###
   # The Tenant name
   #
-  # Change this to match your preferred MinIO Tenant name.
+  # Change this to match your preferred Hanzo S3 Tenant name.
   name: myminio
   ###
   # Specify the Operator container image to use for the deployment.
@@ -41,7 +41,7 @@ tenant:
   #
   # Specify `initContainers <https://kubernetes.io/docs/concepts/workloads/pods/init-containers/>`__ to perform setup or configuration tasks before the main Tenant pods starts.
   #
-  # Example of init container which waits for idenity provider to be reachable before starting MinIO Tenant:
+  # Example of init container which waits for idenity provider to be reachable before starting Hanzo S3 Tenant:
   # 
   # .. code-block:: yaml
   #
@@ -58,13 +58,13 @@ tenant:
   #             echo "IdP (${URL}) not reachable. Waiting to be reachable..."
   #             sleep 5
   #           done
-  #           echo "IdP (${URL}) reachable. Starting MinIO..."
+  #           echo "IdP (${URL}) reachable. Starting Hanzo S3..."
   #
   initContainers: [ ]
   ###
   #
   # Specify `sideCars <https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/>`__.
-  # See https://github.com/minio/operator/blob/master/docs/tenant_crd.adoc#sidecars
+  # See https://github.com/hanzos3/operator/blob/main/docs/tenant_crd.adoc#sidecars
   #
   sideCars: { }
   ###
@@ -73,7 +73,7 @@ tenant:
   # Specify an empty dictionary ``{}`` to dispatch pods with the default scheduler.
   scheduler: { }
   ###
-  # Root key for dynamically creating a secret for use with configuring root MinIO User
+  # Root key for dynamically creating a secret for use with configuring root Hanzo S3 User
   # Specify the ``name`` and then a list of environment variables.
   #
   # .. important::
@@ -121,12 +121,12 @@ tenant:
   #
   #   existingSecret: false
   ###
-  # Top level key for configuring MinIO Pool(s) in this Tenant.
+  # Top level key for configuring Hanzo S3 Pool(s) in this Tenant.
   #
-  # See `Operator CRD: Pools <https://min.io/docs/minio/kubernetes/upstream/reference/operator-crd.html#pool>`__ for more information on all subfields.
+  # See .Operator CRD: Pools <https://s3.hanzo.ai/docs/minio/kubernetes/upstream/reference/operator-crd.html#pool>`__ for more information on all subfields.
   pools:
     ###
-    # The number of MinIO Tenant Pods / Servers in this pool.
+    # The number of Hanzo S3 Tenant Pods / Servers in this pool.
     # For standalone mode, supply 1. For distributed mode, supply 4 or more.
     # Note that the operator does not support upgrading from standalone to distributed mode.
     - servers: 4
@@ -134,13 +134,13 @@ tenant:
       # Custom name for the pool
       name: pool-0
       ###
-      # The number of volumes attached per MinIO Tenant Pod / Server.
+      # The number of volumes attached per Hanzo S3 Tenant Pod / Server.
       volumesPerServer: 4
       ###
-      # The capacity per volume requested per MinIO Tenant Pod.
+      # The capacity per volume requested per Hanzo S3 Tenant Pod.
       size: 10Gi
       ###
-      # The `terminationGracePeriodSeconds <https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-grace-period>`__ for MinIO Tenant Pods.
+      # The `terminationGracePeriodSeconds <https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-grace-period>`__ for Hanzo S3 Tenant Pods.
       # terminationGracePeriodSeconds: 30
       ###
       # The `storageClass <https://kubernetes.io/docs/concepts/storage/storage-classes/>`__ to associate with volumes generated for this pool.
@@ -226,7 +226,7 @@ tenant:
   # The mount path where Persistent Volumes are mounted inside Tenant container(s).
   mountPath: /export
   ###
-  # The Sub path inside Mount path where MinIO stores data.
+  # The Sub path inside Mount path where Hanzo S3 stores data.
   #
   # .. warning::
   #
@@ -283,7 +283,7 @@ tenant:
     # See `Operator CRD: CertificateConfig <https://min.io/docs/minio/kubernetes/upstream/reference/operator-crd.html#certificateconfig>`__
     certConfig: { }
   ###
-  # MinIO features to enable or disable in the MinIO Tenant
+  # MinIO features to enable or disable in the Hanzo S3 Tenant
   # See `Operator CRD: Features <https://min.io/docs/minio/kubernetes/upstream/reference/operator-crd.html#features>`__.
   features:
     bucketDNS: false
@@ -306,7 +306,7 @@ tenant:
   # The Operator creates each user with the ``consoleAdmin`` policy by default. You can change the assigned policy after the Tenant starts.
   users: [ ]
   ###
-  # The `PodManagement <https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy>`__ policy for MinIO Tenant Pods. 
+  # The `PodManagement <https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy>`__ policy for Hanzo S3 Tenant Pods. 
   # Can be "OrderedReady" or "Parallel"
   podManagementPolicy: Parallel
   # The `Liveness Probe <https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes>`__ for monitoring Tenant pod liveness. 
@@ -341,7 +341,7 @@ tenant:
   # Directs the Operator to add the Tenant's metric scrape configuration to an existing Kubernetes Prometheus deployment managed by the Prometheus Operator.
   prometheusOperator: false
   ###
-  # Configure pod logging configuration for the MinIO Tenant.
+  # Configure pod logging configuration for the Hanzo S3 Tenant.
   #
   # - Specify ``json`` for JSON-formatted logs.
   # - Specify ``anonymous`` for anonymized logs.

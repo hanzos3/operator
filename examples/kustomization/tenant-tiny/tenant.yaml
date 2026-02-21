@@ -4,17 +4,17 @@ metadata:
   name: myminio
   namespace: minio-tenant
 spec:
-  ## Specification for MinIO Pool(s) in this Tenant.
+  ## Specification for Hanzo S3 Pool(s) in this Tenant.
   pools:
-    ## Servers specifies the number of MinIO Tenant Pods / Servers in this pool.
+    ## Servers specifies the number of Hanzo S3 Tenant Pods / Servers in this pool.
     ## For standalone mode, supply 1. For distributed mode, supply 4 or more.
     ## Note that the operator does not support upgrading from standalone to distributed mode.
     - servers: 1
       ## custom pool name
       name: pool-0
-      ## volumesPerServer specifies the number of volumes attached per MinIO Tenant Pod / Server.
+      ## volumesPerServer specifies the number of volumes attached per Hanzo S3 Tenant Pod / Server.
       volumesPerServer: 4
-      ## This VolumeClaimTemplate is used across all the volumes provisioned for MinIO Tenant in this
+      ## This VolumeClaimTemplate is used across all the volumes provisioned for Hanzo S3 Tenant in this
       ## Pool.
       volumeClaimTemplate:
         metadata:

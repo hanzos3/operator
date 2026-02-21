@@ -1,6 +1,6 @@
 # Passing custom Certs/CAs to Operator
 
-To configure MinIO Operator to trust custom certificates, create a secret with the certificate.
+To configure Hanzo S3 Operator to trust custom certificates, create a secret with the certificate.
 
 ```shell
 kubectl create secret generic my-custom-tls -n minio-operator --from-file=path/to/public.crt

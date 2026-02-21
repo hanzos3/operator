@@ -1,4 +1,4 @@
-# Using nelm to deploy minio operators
+# Using nelm to deploy Hanzo S3 operators
 This document provides instruction how (nelm)[https://github.com/werf/nelm] could be used for installing and upgrading helm charts
 
 Main advantages of nelm are Server-Side Apply instead of 3-Way Merge, build in pod logs and status tracking for installs, diff display of install changes.

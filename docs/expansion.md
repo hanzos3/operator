@@ -1,14 +1,14 @@
-# Adding capacity to a MinIO Tenant [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Adding capacity to a Hanzo S3 Tenant [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-This document explains how to expand an existing MinIO Tenant with Operator. This is only applicable to a Tenant (MinIO
-Deployment) created by MinIO Operator.
+This document explains how to expand an existing Hanzo S3 Tenant with Operator. This is only applicable to a Tenant (Hanzo S3
+Deployment) created by Hanzo S3 Operator.
 
-MinIO expansion is done in terms of MinIO pools, read more about the design
+Hanzo S3 expansion is done in terms of Hanzo S3 pools, read more about the design
 in [MinIO Docs](https://github.com/minio/minio/blob/master/docs/distributed).
 
 ## Getting Started
 
-You can add capacity to the tenant using editing your tenant yaml or using the MinIO Operator Console.
+You can add capacity to the tenant using editing your tenant yaml or using the Hanzo S3 Operator Console.
 
 ```
 kubectl -n NAMESPACE edit tenant TENANT_NAME
@@ -24,9 +24,9 @@ spec:
         - servers: 4
     ## For naming of the pool, you can use any name, but keeping sequential numbers is recommended.
         name: pool-1
-    ## volumesPerServer specifies the number of volumes attached per MinIO Tenant Pod / Server.
+    ## volumesPerServer specifies the number of volumes attached per Hanzo S3 Tenant Pod / Server.
         volumesPerServer: 4
-    ## This VolumeClaimTemplate is used across all the volumes provisioned for MinIO Tenant in this Pool.
+    ## This VolumeClaimTemplate is used across all the volumes provisioned for Hanzo S3 Tenant in this Pool.
         volumeClaimTemplate:
           metadata:
             name: data
@@ -40,24 +40,24 @@ spec:
 
 **NOTE**: Important points to consider _before_ using Tenant expansion:
 
-- During Tenant expansion, MinIO Operator removes the existing StatefulSet and creates a new StatefulSet with required
+- During Tenant expansion, Hanzo S3 Operator removes the existing StatefulSet and creates a new StatefulSet with required
   number of Pods. This means, there is a downtime during expansion, as the pods are terminated and created again. As
   existing StatefulSet pods are terminated, its PVCs are also deleted. It is _very important_ to ensure PVs bound to
-  MinIO StatefulSet PVCs are not deleted at this time to avoid data loss. We recommend configuring every PV with reclaim
+  Hanzo S3 StatefulSet PVCs are not deleted at this time to avoid data loss. We recommend configuring every PV with reclaim
   policy [`retain`](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#retain), to ensure the PV is not
   deleted. If you attempt Tenant expansion while the PV reclaim policy is set to something else, it may lead to data
   loss. If you have the reclaim policy set to something else, change it as explained
   in [Kubernetes documents](https://kubernetes.io/docs/tasks/administer-Tenant/change-pv-reclaim-policy/).
 
-- MinIO server currently doesn't support reducing storage capacity.
+- Hanzo S3 server currently doesn't support reducing storage capacity.
 
 ## Underlying Details in Tenant Expansion
 
-### What are MinIO pools
+### What are Hanzo S3 pools
 
-A MinIO pool is a self-contained entity with same SLA's (read/write quorum) for each object. There are no limits on how
-many pools can be combined. After adding of a pool, MinIO simply uses the least used pool. All pools are for all
-purposes are invisible to an any application, and MinIO handles the pools internally.
+A Hanzo S3 pool is a self-contained entity with same SLA's (read/write quorum) for each object. There are no limits on how
+many pools can be combined. After adding of a pool, Hanzo S3 simply uses the least used pool. All pools are for all
+purposes are invisible to an any application, and Hanzo S3 handles the pools internally.
 
 ### Rules of Adding pools
 
@@ -67,22 +67,22 @@ set count is 4, new pools should have at least 4 or multiple of 4 drives.
 
 ### Effects on KES/TLS Enabled Instance
 
-If your MinIO Operator configuration has [KES](https://github.com/minio/operator/blob/master/docs/kes.md)
-or [Automatic TLS](https://github.com/minio/operator/blob/master/docs/tls.md#automatic-csr-generation) enabled, there
+If your Hanzo S3 Operator configuration has [KES](https://github.com/hanzos3/operator/blob/master/docs/kes.md)
+or [Automatic TLS](https://github.com/hanzos3/operator/blob/master/docs/tls.md#automatic-csr-generation) enabled, there
 are additional considerations:
 
 - When new pools are added, Operator invalidates older self-signed TLS certificates and the related secrets. Operator
-  then creates new certificate signing requests (CSR). This is because there are new MinIO nodes that must be added in
-  certificate DNS names. The administrator must approve these CSRs for MinIO server to be deployed again. Unless the CSR
-  are approved, Operator will not create MinIO StatefulSet pods.
+  then creates new certificate signing requests (CSR). This is because there are new Hanzo S3 nodes that must be added in
+  certificate DNS names. The administrator must approve these CSRs for Hanzo S3 server to be deployed again. Unless the CSR
+  are approved, Operator will not create Hanzo S3 StatefulSet pods.
 
 - If you're using your own certificates, as
-  explained [here](https://github.com/minio/operator/blob/master/docs/tls.md#pass-certificate-secret-to-tenant), please
-  ensure to use/update proper certificates that allow older and new MinIO nodes.
+  explained [here](https://github.com/hanzos3/operator/blob/master/docs/tls.md#pass-certificate-secret-to-tenant), please
+  ensure to use/update proper certificates that allow older and new Hanzo S3 nodes.
 
 ## Downtime
 
 The Tenant expansion process requires removing the existing StatefulSet and creating a new StatefulSet with the required
-number of pods. Kubernetes automatically terminates and re-creates pods and PVCs during this process. Since MinIO
+number of pods. Kubernetes automatically terminates and re-creates pods and PVCs during this process. Since Hanzo S3
 requires at least (Volumes/2)+1 volumes to support regular read and write operations, the expansion process may result
-in a period of downtime where MinIO returns errors for read and write operations.
+in a period of downtime where Hanzo S3 returns errors for read and write operations.

@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2023 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2023 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -44,7 +44,7 @@ func GetTenantArgs(tenant *miniov2.Tenant) (string, error) {
 	if tenant == nil {
 		return "", fmt.Errorf("tenant is nil")
 	}
-	// Validate the MinIO Tenant
+	// Validate the Hanzo S3 Tenant
 	if err := tenant.Validate(); err != nil {
 		log.Println(err)
 		return "", err

@@ -4,4 +4,4 @@ set -e
 
 helm package helm/operator -d helm-releases/
 helm package helm/tenant -d helm-releases/
-helm repo index --merge index.yaml --url https://operator.min.io .
+helm repo index --merge index.yaml --url https://s3.hanzo.ai .

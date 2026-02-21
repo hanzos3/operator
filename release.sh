@@ -52,11 +52,11 @@ files=(
 	"testing/console-tenant+kes.sh"
 )
 
-CURRENT_RELEASE=$(get_latest_release minio/operator)
+CURRENT_RELEASE=$(get_latest_release hanzos3/operator)
 CURRENT_RELEASE="${CURRENT_RELEASE:1}"
 
 echo "Upgrade: $CURRENT_RELEASE => $RELEASE"
-echo "MinIO: $MINIO_RELEASE => $MINIO_RELEASE"
+echo "Hanzo S3: $MINIO_RELEASE => $MINIO_RELEASE"
 echo "KES: $KES_CURRENT_RELEASE => $KES_RELEASE"
 
 if [ -z "$MINIO_RELEASE" ]; then

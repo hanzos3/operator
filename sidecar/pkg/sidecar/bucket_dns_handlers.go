@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2023 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2023 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -90,7 +90,7 @@ func (c *Controller) BucketSrvHandler(w http.ResponseWriter, r *http.Request) {
 
 	tenant.EnsureDefaults()
 
-	// Validate the MinIO Tenant
+	// Validate the Hanzo S3 Tenant
 	if err = tenant.Validate(); err != nil {
 		http.Error(w, err.Error(), http.StatusForbidden)
 		return

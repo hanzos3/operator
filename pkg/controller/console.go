@@ -1,5 +1,5 @@
-// This file is part of MinIO Operator
-// Copyright (c) 2021 MinIO, Inc.
+// This file is part of Hanzo S3 Operator
+// Copyright (c) 2021 Hanzo AI, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -28,7 +28,7 @@ import (
 	"k8s.io/klog/v2"
 )
 
-// checkConsoleSvc validates the existence of the MinIO service and validate it's status against what the specification
+// checkConsoleSvc validates the existence of the Hanzo S3 service and validate it's status against what the specification
 // states
 func (c *Controller) checkConsoleSvc(ctx context.Context, tenant *miniov2.Tenant, nsName types.NamespacedName) error {
 	// Handle the Internal ClusterIP Service for Tenant

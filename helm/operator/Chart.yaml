@@ -1,5 +1,5 @@
 apiVersion: v2
-description: A Helm chart for MinIO Operator
+description: A Helm chart for Hanzo S3 Operator
 name: operator
 version: 7.1.1
 appVersion: v7.1.1
@@ -7,11 +7,11 @@ keywords:
   - storage
   - object-storage
   - S3
-home: https://min.io
-icon: https://min.io/resources/img/logo/MINIO_wordmark.png
+home: https://s3.hanzo.ai
+icon: https://hanzo.ai/icon.png
 sources:
-  - https://github.com/minio/operator
+  - https://github.com/hanzos3/operator
 maintainers:
-  - name: MinIO, Inc
-    email: dev@minio.io
+  - name: Hanzo AI, Inc.
+    email: dev@hanzo.ai
 type: application
