@@ -22,7 +22,7 @@ storage.
 
 It is possible to customize the tenant by creating a `kustomization.yaml` and using the example tenant as a base.
 
-For example, to use a particular version of MinIO in your tenant and not the one the Operator is defaulting to, you can
+For example, to use a particular version of Hanzo S3 in your tenant and not the one the Operator is defaulting to, you can
 create a `kustomization.yaml` like:
 
 ```yaml

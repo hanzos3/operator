@@ -1,4 +1,4 @@
-# MinIO TLS Configuration [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Hanzo S3 TLS Configuration [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
 This document explains how to enable TLS on Hanzo S3 pods.
 
@@ -14,7 +14,7 @@ To enable automatic CSR generation on Tenant, set `requestAutoCert` field in the
 
 - dnsNames: By default set to a list of all pod DNS names that are part of current Tenant. Any value added under this section will be appended to the list of existing pod DNS names.
 
-Once you enable the `requestAutoCert` field and create the Tenant, Hanzo S3 Operator creates a CSR for this instance and sends to the Kubernetes API server. Hanzo S3 Operator will then approve the CSR. After the CSR is approved and Certificate available, MinIO operator downloads the certificate and then mounts the Private Key and Certificate within the Tenant pod.
+Once you enable the `requestAutoCert` field and create the Tenant, Hanzo S3 Operator creates a CSR for this instance and sends to the Kubernetes API server. Hanzo S3 Operator will then approve the CSR. After the CSR is approved and Certificate available, Hanzo S3 Operator downloads the certificate and then mounts the Private Key and Certificate within the Tenant pod.
 
 ---
 
@@ -49,4 +49,4 @@ Once created, set the name of the Secret (in this example `tls-ssl-minio`) under
 ## Using cert-manager
 
 [Certificate Manager](https://cert-manager.io) is a Kubernetes Operator capable of automatically issuing certificates from multiple Issuers. 
-For instructions on using Cert Manager with MinIO please follow the guide in the [cert-manager.md](cert-manager.md) document.
+For instructions on using Cert Manager with Hanzo S3 please follow the guide in the [cert-manager.md](cert-manager.md) document.

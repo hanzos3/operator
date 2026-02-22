@@ -23,7 +23,7 @@ spec:
     ## accessible as DNS entries of form `<bucketname>.minio.namespace.svc.cluster.local`
     ## This feature is turned off by default
     bucketDNS: false
-    ## Specify a list of domains used to access MinIO and Console
+    ## Specify a list of domains used to access Hanzo S3 and Console
     domains: { }
     ## Enable access via SFTP
     ## This feature is turned off by default
@@ -53,7 +53,7 @@ spec:
     name: storage-configuration
   ## Add environment variables to be set in Hanzo S3 container (https://github.com/minio/minio/tree/master/docs/config)
   env: [ ]
-  ## serviceMetadata allows passing additional labels and annotations to MinIO and Console specific
+  ## serviceMetadata allows passing additional labels and annotations to Hanzo S3 and Console specific
   ## services created by the operator.
   serviceMetadata:
     minioServiceLabels: { }
@@ -61,10 +61,10 @@ spec:
     consoleServiceLabels: { }
     consoleServiceAnnotations: { }
   ## PriorityClassName indicates the Pod priority and hence importance of a Pod relative to other Pods.
-  ## This is applied to MinIO pods only.
+  ## This is applied to Hanzo S3 pods only.
   ## Refer Kubernetes documentation for details https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#priorityclass/
   priorityClassName: ""
-  ## Use this field to provide one or more external CA certificates. This is used by MinIO
+  ## Use this field to provide one or more external CA certificates. This is used by Hanzo S3
   ## to verify TLS connections with other applications.
   ## Certificate secret files will be mounted under /tmp/certs/CAs folder, supported types:
   ## Opaque | kubernetes.io/tls | cert-manager.io/v1alpha2 | cert-manager.io/v1
@@ -100,8 +100,8 @@ spec:
   ## Create secrets as explained here:
   ## https://github.com/minio/minio/tree/master/docs/tls/kubernetes#2-create-kubernetes-secret
   externalCertSecret: [ ]
-  ## Use this field to provide client certificates for MinIO & KES. This can be used to configure
-  ## mTLS for MinIO and your KES server. Files will be mounted under /tmp/certs folder, supported types:
+  ## Use this field to provide client certificates for Hanzo S3 & KES. This can be used to configure
+  ## mTLS for Hanzo S3 and your KES server. Files will be mounted under /tmp/certs folder, supported types:
   ## Opaque | kubernetes.io/tls | cert-manager.io/v1alpha2 | cert-manager.io/v1
   ## ie:
   ##
@@ -143,12 +143,12 @@ spec:
   ## Create secrets as explained here:
   ## https://github.com/minio/minio/tree/master/docs/tls/kubernetes#2-create-kubernetes-secret
   externalClientCertSecrets: [ ]
-  ## Registry location and Tag to download MinIO Server image
+  ## Registry location and Tag to download Hanzo S3 Server image
   image: quay.io/minio/minio:RELEASE.2025-04-08T15-41-24Z
   imagePullSecret: { }
   ## Mount path where PV will be mounted inside container(s).
   mountPath: /export
-  ## Sub path inside Mount path where MinIO stores data.
+  ## Sub path inside Mount path where Hanzo S3 stores data.
   ## WARNING:
   ## We recommend you to keep the same mountPath and the same subPath once the
   ## Tenant has been deployed over your different PVs.
@@ -156,7 +156,7 @@ spec:
   ## you will end up with multiple paths for different buckets. So please, be
   ## very careful to keep same value for the life of the Tenant.
   subPath: ""
-  ## Service account to be used for all the MinIO Pods
+  ## Service account to be used for all the Hanzo S3 Pods
   serviceAccountName: ""
   ## Specification for Hanzo S3 Pool(s) in this Tenant.
   pools:
@@ -166,19 +166,19 @@ spec:
     - servers: 4
       ## custom name for the pool
       name: pool-0
-      ## Specify one or more Pod Topology Spread Constraints to apply to pods deployed in the MinIO pool.
+      ## Specify one or more Pod Topology Spread Constraints to apply to pods deployed in the Hanzo S3 pool.
       ## https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints 
       topologySpreadConstraints: [ ]
       ## volumesPerServer specifies the number of volumes attached per Hanzo S3 Tenant Pod / Server.
       volumesPerServer: 4
-      ## nodeSelector parameters for MinIO Pods. It specifies a map of key-value pairs. For the pod to be
+      ## nodeSelector parameters for Hanzo S3 Pods. It specifies a map of key-value pairs. For the pod to be
       ## eligible to run on a node, the node must have each of the
       ## indicated key-value pairs as labels.
       ## Read more here: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
       nodeSelector: { }
       ## Used to specify a toleration for a pod
       tolerations: [ ]
-      ## Affinity settings for MinIO pods. Read more about affinity
+      ## Affinity settings for Hanzo S3 pods. Read more about affinity
       ## here: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity.
       affinity:
         nodeAffinity: { }

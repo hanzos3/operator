@@ -8,7 +8,7 @@ metadata:
   labels:
     app: minio
   {{- if dig "metrics" "enabled" false . }}
-  ## Annotations for MinIO Tenant Pods
+  ## Annotations for Hanzo S3 Tenant Pods
   annotations:
     prometheus.io/path: /minio/v2/metrics/cluster
     prometheus.io/port: {{ dig "metrics" "port" 9000 . | quote }}

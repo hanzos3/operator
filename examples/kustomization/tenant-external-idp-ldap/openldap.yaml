@@ -18,7 +18,7 @@ spec:
           image: quay.io/minio/openldap:latest
           env:
             - name: LDAP_ORGANIZATION
-              value: "MinIO Inc."
+              value: "Hanzo S3 Inc."
             - name: LDAP_DOMAIN
               value: "min.io"
             - name: LDAP_ADMIN_PASSWORD

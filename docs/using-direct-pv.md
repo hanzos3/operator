@@ -4,7 +4,7 @@
 
 Follow the instructions to install DirectPV [here](https://github.com/minio/directpv)
 
-### Utilize the CSI with MinIO operator
+### Utilize the CSI with Hanzo S3 Operator
 
 ```yaml
   ## This VolumeClaimTemplate is used across all the volumes provisioned for MinIO cluster.
