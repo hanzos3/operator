@@ -122,7 +122,7 @@ drives per node. For example, a 4-node tenant with 4 drives per node requires 16
 We *strongly recommend* using the following CSI drivers for creating local PV to ensure best object storage
 performance:
 
-- [DirectPV](https://github.com/minio/directpv)
+- [DirectPV](https://github.com/hanzos3/directpv)
 - [Local Persistent Volume](https://kubernetes.io/docs/concepts/storage/volumes/#local)
 
 ## Procedure
