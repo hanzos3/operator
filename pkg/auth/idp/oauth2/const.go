@@ -18,7 +18,7 @@ package oauth2
 
 // Environment constants for console IDP/SSO configuration
 const (
-	ConsoleMinIOServer        = "CONSOLE_MINIO_SERVER"
+	ConsoleMinIOServer        = "CONSOLE_S3_SERVER"
 	ConsoleIDPSecret          = "CONSOLE_IDP_SECRET"
 	ConsoleIDPHmacPassphrase  = "CONSOLE_IDP_HMAC_PASSPHRASE"
 	ConsoleIDPHmacSalt        = "CONSOLE_IDP_HMAC_SALT"

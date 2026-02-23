@@ -6,7 +6,7 @@ metadata:
 type: Opaque
 stringData:
   config.env: |-
-    export MINIO_ROOT_USER="minio"
-    export MINIO_ROOT_PASSWORD="minio123"
-    export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-    export MINIO_BROWSER="on"
+    export S3_ROOT_USER="minio"
+    export S3_ROOT_PASSWORD="minio123"
+    export S3_STORAGE_CLASS_STANDARD="EC:2"
+    export S3_BROWSER="on"

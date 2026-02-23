@@ -116,8 +116,8 @@ tenant:
   #
   #    stringData:
   #       config.env: |-
-  #         export MINIO_ROOT_USER=ROOTUSERNAME
-  #         export MINIO_ROOT_PASSWORD=ROOTUSERPASSWORD
+  #         export S3_ROOT_USER=ROOTUSERNAME
+  #         export S3_ROOT_PASSWORD=ROOTUSERPASSWORD
   #
   #   existingSecret: false
   ###
@@ -412,7 +412,7 @@ tenant:
   #        header:
   #          cert: X-Tls-Client-Cert
   #    admin:
-  #      identity: ${MINIO_KES_IDENTITY}
+  #      identity: ${S3_KES_IDENTITY}
   #    cache:
   #      expiry:
   #        any: 5m0s
@@ -521,5 +521,5 @@ ingress:
 #      name: {{ dig "tenant" "configSecret" "name" "" (.Values | merge (dict)) }}
 #    stringData:
 #      config.env: |-
-#        export MINIO_ROOT_USER='minio'
-#        export MINIO_ROOT_PASSWORD='minio123'
+#        export S3_ROOT_USER='minio'
+#        export S3_ROOT_PASSWORD='minio123'

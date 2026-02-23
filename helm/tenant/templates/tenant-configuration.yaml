@@ -14,8 +14,8 @@ metadata:
 type: Opaque
 stringData:
   config.env: |-
-    export MINIO_ROOT_USER={{ .Values.tenant.configSecret.accessKey | quote }}
-    export MINIO_ROOT_PASSWORD={{ .Values.tenant.configSecret.secretKey | quote }}
+    export S3_ROOT_USER={{ .Values.tenant.configSecret.accessKey | quote }}
+    export S3_ROOT_PASSWORD={{ .Values.tenant.configSecret.secretKey | quote }}
 
 {{- end }}
 {{- end }}

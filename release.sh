@@ -28,10 +28,10 @@ get_latest_release() {
 		sed -E 's/.*"([^"]+)".*/\1/'                                     # Pluck JSON value
 }
 
-MINIO_RELEASE=$(get_latest_release minio/minio)
+S3_RELEASE=$(get_latest_release minio/minio)
 KES_RELEASE=$(get_latest_release minio/kes)
 
-MINIO_CURRENT_RELEASE=$(sed -nr 's/.*(minio\/minio\:)([v]?.*)"/\2/p' pkg/apis/minio.min.io/v2/constants.go)
+S3_CURRENT_RELEASE=$(sed -nr 's/.*(minio\/minio\:)([v]?.*)"/\2/p' pkg/apis/minio.min.io/v2/constants.go)
 KES_CURRENT_RELEASE=$(sed -nr 's/.*(minio\/kes\:)([v]?.*)"/\2/p' pkg/apis/minio.min.io/v2/constants.go)
 
 files=(
@@ -56,18 +56,18 @@ CURRENT_RELEASE=$(get_latest_release hanzos3/operator)
 CURRENT_RELEASE="${CURRENT_RELEASE:1}"
 
 echo "Upgrade: $CURRENT_RELEASE => $RELEASE"
-echo "Hanzo S3: $MINIO_RELEASE => $MINIO_RELEASE"
+echo "Hanzo S3: $S3_RELEASE => $S3_RELEASE"
 echo "KES: $KES_CURRENT_RELEASE => $KES_RELEASE"
 
-if [ -z "$MINIO_RELEASE" ]; then
-	echo "\$MINIO_RELEASE is empty"
+if [ -z "$S3_RELEASE" ]; then
+	echo "\$S3_RELEASE is empty"
 	exit 0
 fi
 
 for file in "${files[@]}"; do
 	sed_inplace "s/${KES_CURRENT_RELEASE}/${KES_RELEASE}/g" "$file"
 	sed_inplace "s/${CURRENT_RELEASE}/${RELEASE}/g" "$file"
-	sed_inplace "s/${MINIO_CURRENT_RELEASE}/${MINIO_RELEASE}/g" "$file"
+	sed_inplace "s/${S3_CURRENT_RELEASE}/${S3_RELEASE}/g" "$file"
 done
 
 annotations_files=(

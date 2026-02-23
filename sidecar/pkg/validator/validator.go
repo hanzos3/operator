@@ -102,21 +102,21 @@ func ReadTmpConfig() (bool, bool, string, error) {
 	newFile := ""
 	for scanner.Scan() {
 		line := scanner.Text()
-		if strings.Contains(line, "MINIO_ROOT_USER") {
+		if strings.Contains(line, "S3_ROOT_USER") {
 			rootUserFound = true
 		}
-		if strings.Contains(line, "MINIO_ACCESS_KEY") {
+		if strings.Contains(line, "S3_ACCESS_KEY") {
 			rootUserFound = true
 		}
-		if strings.Contains(line, "MINIO_ROOT_PASSWORD") {
+		if strings.Contains(line, "S3_ROOT_PASSWORD") {
 			rootPwdFound = true
 		}
-		if strings.Contains(line, "MINIO_SECRET_KEY") {
+		if strings.Contains(line, "S3_SECRET_KEY") {
 			rootPwdFound = true
 		}
-		// We don't allow users to set MINIO_ARGS
-		if strings.Contains(line, "MINIO_ARGS") {
-			log.Println("MINIO_ARGS in config file found. It will be ignored.")
+		// We don't allow users to set S3_ARGS
+		if strings.Contains(line, "S3_ARGS") {
+			log.Println("S3_ARGS in config file found. It will be ignored.")
 			continue
 		}
 		newFile = newFile + line + "\n"

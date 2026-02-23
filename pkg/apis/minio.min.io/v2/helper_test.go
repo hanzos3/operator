@@ -252,36 +252,36 @@ func TestParseRawConfiguration(t *testing.T) {
 			name: "ldap-configuration",
 			args: args{
 				configuration: []byte(`
-export MINIO_ROOT_USER=minio
-export MINIO_ROOT_PASSWORD=minio123
+export S3_ROOT_USER=minio
+export S3_ROOT_PASSWORD=minio123
 
-export MINIO_IDENTITY_LDAP_SERVER_ADDR=localhost:389
-export MINIO_IDENTITY_LDAP_LOOKUP_BIND_DN="cn=admin,dc=min,dc=io"
-export MINIO_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD="admin"
-export MINIO_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN="dc=min,dc=io"
-export MINIO_IDENTITY_LDAP_USER_DN_SEARCH_FILTER="(uid=%s)"
-export MINIO_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN="ou=swengg,dc=min,dc=io"
-export MINIO_IDENTITY_LDAP_GROUP_SEARCH_FILTER="(&(objectclass=groupOfNames)(member=%d))"
-export MINIO_IDENTITY_LDAP_SERVER_INSECURE="on"
+export S3_IDENTITY_LDAP_SERVER_ADDR=localhost:389
+export S3_IDENTITY_LDAP_LOOKUP_BIND_DN="cn=admin,dc=min,dc=io"
+export S3_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD="admin"
+export S3_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN="dc=min,dc=io"
+export S3_IDENTITY_LDAP_USER_DN_SEARCH_FILTER="(uid=%s)"
+export S3_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN="ou=swengg,dc=min,dc=io"
+export S3_IDENTITY_LDAP_GROUP_SEARCH_FILTER="(&(objectclass=groupOfNames)(member=%d))"
+export S3_IDENTITY_LDAP_SERVER_INSECURE="on"
 
-export MINIO_BROWSER_REDIRECT_URL=http://localhost:9001
-export MINIO_SERVER_URL=http://localhost:9000`),
+export S3_BROWSER_REDIRECT_URL=http://localhost:9001
+export S3_SERVER_URL=http://localhost:9000`),
 			},
 			wantConfig: map[string][]byte{
 				"accesskey":                                  []byte("minio"),
 				"secretkey":                                  []byte("minio123"),
-				"MINIO_ROOT_USER":                            []byte("minio"),
-				"MINIO_ROOT_PASSWORD":                        []byte("minio123"),
-				"MINIO_IDENTITY_LDAP_SERVER_ADDR":            []byte("localhost:389"),
-				"MINIO_IDENTITY_LDAP_LOOKUP_BIND_DN":         []byte("cn=admin,dc=min,dc=io"),
-				"MINIO_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD":   []byte("admin"),
-				"MINIO_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN": []byte("dc=min,dc=io"),
-				"MINIO_IDENTITY_LDAP_USER_DN_SEARCH_FILTER":  []byte("(uid=%s)"),
-				"MINIO_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN":   []byte("ou=swengg,dc=min,dc=io"),
-				"MINIO_IDENTITY_LDAP_GROUP_SEARCH_FILTER":    []byte("(&(objectclass=groupOfNames)(member=%d))"),
-				"MINIO_IDENTITY_LDAP_SERVER_INSECURE":        []byte("on"),
-				"MINIO_BROWSER_REDIRECT_URL":                 []byte("http://localhost:9001"),
-				"MINIO_SERVER_URL":                           []byte("http://localhost:9000"),
+				"S3_ROOT_USER":                            []byte("minio"),
+				"S3_ROOT_PASSWORD":                        []byte("minio123"),
+				"S3_IDENTITY_LDAP_SERVER_ADDR":            []byte("localhost:389"),
+				"S3_IDENTITY_LDAP_LOOKUP_BIND_DN":         []byte("cn=admin,dc=min,dc=io"),
+				"S3_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD":   []byte("admin"),
+				"S3_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN": []byte("dc=min,dc=io"),
+				"S3_IDENTITY_LDAP_USER_DN_SEARCH_FILTER":  []byte("(uid=%s)"),
+				"S3_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN":   []byte("ou=swengg,dc=min,dc=io"),
+				"S3_IDENTITY_LDAP_GROUP_SEARCH_FILTER":    []byte("(&(objectclass=groupOfNames)(member=%d))"),
+				"S3_IDENTITY_LDAP_SERVER_INSECURE":        []byte("on"),
+				"S3_BROWSER_REDIRECT_URL":                 []byte("http://localhost:9001"),
+				"S3_SERVER_URL":                           []byte("http://localhost:9000"),
 			},
 		},
 		{
@@ -298,29 +298,29 @@ export MINIO_SERVER_URL=http://localhost:9000`),
 #   callback(null, user, context);
 # }
 
-export MINIO_ROOT_USER=minio
-export MINIO_ROOT_PASSWORD=minio123
-export MINIO_IDENTITY_OPENID_CONFIG_URL=https://*******************/.well-known/openid-configuration
-export MINIO_IDENTITY_OPENID_CLIENT_ID="****************************"
-export MINIO_IDENTITY_OPENID_CLIENT_SECRET="********************"
-export MINIO_IDENTITY_OPENID_SCOPES="openid,profile,email"
-export MINIO_IDENTITY_OPENID_CLAIM_NAME="https://min.io/policy"
-export MINIO_BROWSER_REDIRECT_URL=http://localhost:9001
-export MINIO_SERVER_URL=http://localhost:9000
+export S3_ROOT_USER=minio
+export S3_ROOT_PASSWORD=minio123
+export S3_IDENTITY_OPENID_CONFIG_URL=https://*******************/.well-known/openid-configuration
+export S3_IDENTITY_OPENID_CLIENT_ID="****************************"
+export S3_IDENTITY_OPENID_CLIENT_SECRET="********************"
+export S3_IDENTITY_OPENID_SCOPES="openid,profile,email"
+export S3_IDENTITY_OPENID_CLAIM_NAME="https://min.io/policy"
+export S3_BROWSER_REDIRECT_URL=http://localhost:9001
+export S3_SERVER_URL=http://localhost:9000
 ./minio server ~/Data --console-address ":9001"`),
 			},
 			wantConfig: map[string][]byte{
 				"accesskey":                           []byte("minio"),
 				"secretkey":                           []byte("minio123"),
-				"MINIO_ROOT_USER":                     []byte("minio"),
-				"MINIO_ROOT_PASSWORD":                 []byte("minio123"),
-				"MINIO_IDENTITY_OPENID_CONFIG_URL":    []byte("https://*******************/.well-known/openid-configuration"),
-				"MINIO_IDENTITY_OPENID_CLIENT_ID":     []byte("****************************"),
-				"MINIO_IDENTITY_OPENID_CLIENT_SECRET": []byte("********************"),
-				"MINIO_IDENTITY_OPENID_SCOPES":        []byte("openid,profile,email"),
-				"MINIO_IDENTITY_OPENID_CLAIM_NAME":    []byte("https://min.io/policy"),
-				"MINIO_BROWSER_REDIRECT_URL":          []byte("http://localhost:9001"),
-				"MINIO_SERVER_URL":                    []byte("http://localhost:9000"),
+				"S3_ROOT_USER":                     []byte("minio"),
+				"S3_ROOT_PASSWORD":                 []byte("minio123"),
+				"S3_IDENTITY_OPENID_CONFIG_URL":    []byte("https://*******************/.well-known/openid-configuration"),
+				"S3_IDENTITY_OPENID_CLIENT_ID":     []byte("****************************"),
+				"S3_IDENTITY_OPENID_CLIENT_SECRET": []byte("********************"),
+				"S3_IDENTITY_OPENID_SCOPES":        []byte("openid,profile,email"),
+				"S3_IDENTITY_OPENID_CLAIM_NAME":    []byte("https://min.io/policy"),
+				"S3_BROWSER_REDIRECT_URL":          []byte("http://localhost:9001"),
+				"S3_SERVER_URL":                    []byte("http://localhost:9000"),
 			},
 		},
 	}

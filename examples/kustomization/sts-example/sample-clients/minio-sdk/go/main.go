@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	tenantEndpoint := os.Getenv("MINIO_ENDPOINT")
+	tenantEndpoint := os.Getenv("S3_ENDPOINT")
 	stsEndpoint := os.Getenv("STS_ENDPOINT")
 	tenantNamespace := os.Getenv("TENANT_NAMESPACE")
 	bucketName := os.Getenv("BUCKET")

@@ -151,7 +151,7 @@ the user, the data will be encrypted at rest
   ```
 
 - Calculate the `app.cert` identity using `KES`: `kes tool identity of app.cert`, copy the resulting hash and open your
-  KES configuration `YAML` (`kes-configuration-secret.yaml`) file and replace `${MINIO_KES_IDENTITY}` for
+  KES configuration `YAML` (`kes-configuration-secret.yaml`) file and replace `${S3_KES_IDENTITY}` for
   the `bda5d8b6531d2f3bcd64e5ec73841bcb23ecb57b19c5f814e491ea2b2088995c` string, you can
   add additional identities using this array, ie:
 

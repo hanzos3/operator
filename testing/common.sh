@@ -202,23 +202,23 @@ function install_minio() {
     mkdir ~/minio-installation
     cd ~/minio-installation || exit
 
-    DOWNLOAD_NAME="archive/minio.${MINIO_VERSION}"
-    MINIO_RELEASE_TYPE="release"
-    if [ -n "${MINIO_ENTERPRISE_TEST_WITH_HOTFIX_VERSION}" ] && [ -n "${MINIO_VERSION}" ]; then
-        MINIO_RELEASE_TYPE="hotfixes"
+    DOWNLOAD_NAME="archive/minio.${S3_VERSION}"
+    S3_RELEASE_TYPE="release"
+    if [ -n "${S3_ENTERPRISE_TEST_WITH_HOTFIX_VERSION}" ] && [ -n "${S3_VERSION}" ]; then
+        S3_RELEASE_TYPE="hotfixes"
     fi
 
-    if [ "${MINIO_VERSION}" == "latest" ] || [ -z "${MINIO_VERSION}" ]; then
+    if [ "${S3_VERSION}" == "latest" ] || [ -z "${S3_VERSION}" ]; then
         DOWNLOAD_NAME="minio"
     fi
 
     RESULT=$(uname -a | grep Darwin | grep -c arm64 | awk -F' ' '{print $1}')
     if [ "$RESULT" == "1" ]; then
-        curl --progress-bar -o minio https://dl.min.io/server/minio/"${MINIO_RELEASE_TYPE}"/darwin-amd64/"${DOWNLOAD_NAME}"
+        curl --progress-bar -o minio https://dl.min.io/server/minio/"${S3_RELEASE_TYPE}"/darwin-amd64/"${DOWNLOAD_NAME}"
     fi
     RESULT=$(uname -a | grep Linux | grep -c x86_64 | awk -F' ' '{print $1}')
     if [ "$RESULT" == "1" ]; then
-        wget -O minio https://dl.min.io/server/minio/"${MINIO_RELEASE_TYPE}"/linux-amd64/"${DOWNLOAD_NAME}"
+        wget -O minio https://dl.min.io/server/minio/"${S3_RELEASE_TYPE}"/linux-amd64/"${DOWNLOAD_NAME}"
     fi
     chmod +x minio
     mv minio /usr/local/bin/minio || sudo mv minio /usr/local/bin/minio
@@ -512,9 +512,9 @@ function load_kind_image() {
 # usage: load_kind_images
 function load_kind_images() {
     echo "load_kind_images():"
-    MINIO_RELEASE=$(get_minio_image_name "latest")
-    echo "MINIO_RELEASE: ${MINIO_RELEASE}"
-    load_kind_image "$MINIO_RELEASE"
+    S3_RELEASE=$(get_minio_image_name "latest")
+    echo "S3_RELEASE: ${S3_RELEASE}"
+    load_kind_image "$S3_RELEASE"
 }
 
 function create_restricted_namespace() {
@@ -712,8 +712,8 @@ function check_tenant_status() {
   else
     echo "No fourth argument provided, using default USER and PASSWORD"
     TENANT_CONFIG_SECRET=$(kubectl -n $1 get tenants.minio.min.io $2 -o jsonpath="{.spec.configuration.name}")
-    USER=$(kubectl -n $1 get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export MINIO_ROOT_USER="' | sed -e 's/export MINIO_ROOT_USER="//g' | sed -e 's/"//g')
-    PASSWORD=$(kubectl -n $1 get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export MINIO_ROOT_PASSWORD="' | sed -e 's/export MINIO_ROOT_PASSWORD="//g' | sed -e 's/"//g')
+    USER=$(kubectl -n $1 get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export S3_ROOT_USER="' | sed -e 's/export S3_ROOT_USER="//g' | sed -e 's/"//g')
+    PASSWORD=$(kubectl -n $1 get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export S3_ROOT_PASSWORD="' | sed -e 's/export S3_ROOT_PASSWORD="//g' | sed -e 's/"//g')
   fi
 
   if [ $# -ge 4 ]; then

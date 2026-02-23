@@ -99,7 +99,7 @@ func (c *Controller) getSystemCfgFromStatefulSet(ctx context.Context, sts *appsv
 	for _, container := range sts.Spec.Template.Spec.Containers {
 		if container.Name == miniov2.MinIOServerName {
 			for _, e := range container.Env {
-				if strings.HasPrefix(e.Name, "MINIO_") {
+				if strings.HasPrefix(e.Name, "S3_") {
 					switch {
 					case e.Value != "":
 						systemCfg[e.Name] = e.Value

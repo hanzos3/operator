@@ -56,16 +56,16 @@ After upgrading, to have the Hanzo S3 Tenant keep using these services, just add
 to `.spec.env`
 
 ```yaml
-- name: MINIO_LOG_QUERY_AUTH_TOKEN
+- name: S3_LOG_QUERY_AUTH_TOKEN
   valueFrom:
     secretKeyRef:
-      key: MINIO_LOG_QUERY_AUTH_TOKEN
+      key: S3_LOG_QUERY_AUTH_TOKEN
       name: <TENANT_NAME>-log-secret
-- name: MINIO_LOG_QUERY_URL
+- name: S3_LOG_QUERY_URL
   value: http://<TENANT_NAME>-log-search-api:8080
-- name: MINIO_PROMETHEUS_JOB_ID
+- name: S3_PROMETHEUS_JOB_ID
   value: minio-job
-- name: MINIO_PROMETHEUS_URL
+- name: S3_PROMETHEUS_URL
   value: http://<TENANT_NAME>-prometheus-hl-svc:9090
 ```
 

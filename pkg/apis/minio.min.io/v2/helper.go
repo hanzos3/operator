@@ -55,9 +55,9 @@ import (
 
 // Webhook API constants
 const (
-	MinIOServerURL          = "MINIO_SERVER_URL"
-	MinIODomain             = "MINIO_DOMAIN"
-	MinIOBrowserRedirectURL = "MINIO_BROWSER_REDIRECT_URL"
+	MinIOServerURL          = "S3_SERVER_URL"
+	MinIODomain             = "S3_DOMAIN"
+	MinIOBrowserRedirectURL = "S3_BROWSER_REDIRECT_URL"
 
 	defaultPrometheusJWTExpiry = 100 * 365 * 24 * time.Hour
 )
@@ -720,7 +720,7 @@ func MustGetSystemCertPool() *x509.CertPool {
 // CreateUsers creates a list of admin users on MinIO, optionally creating users is disabled.
 func (t *Tenant) CreateUsers(madmClnt *madmin.AdminClient, userCredentialSecrets []*corev1.Secret, tenantConfiguration map[string][]byte) error {
 	var skipCreateUser bool // Skip creating users if LDAP is enabled.
-	if ldapAddress, ok := tenantConfiguration["MINIO_IDENTITY_LDAP_SERVER_ADDR"]; ok {
+	if ldapAddress, ok := tenantConfiguration["S3_IDENTITY_LDAP_SERVER_ADDR"]; ok {
 		skipCreateUser = string(ldapAddress) != ""
 	}
 	// add user with a 20 seconds timeout
@@ -1048,9 +1048,9 @@ func ParseRawConfiguration(configuration []byte) (config map[string][]byte) {
 				continue
 			}
 			config[ekv.Key] = []byte(ekv.Value)
-			if ekv.Key == "MINIO_ROOT_USER" || ekv.Key == "MINIO_ACCESS_KEY" {
+			if ekv.Key == "S3_ROOT_USER" || ekv.Key == "S3_ACCESS_KEY" {
 				config["accesskey"] = config[ekv.Key]
-			} else if ekv.Key == "MINIO_ROOT_PASSWORD" || ekv.Key == "MINIO_SECRET_KEY" {
+			} else if ekv.Key == "S3_ROOT_PASSWORD" || ekv.Key == "S3_SECRET_KEY" {
 				config["secretkey"] = config[ekv.Key]
 			}
 		}
@@ -1129,7 +1129,7 @@ func (t *Tenant) ValidateDomains() error {
 	return nil
 }
 
-// GetDomainHosts returns a list of hosts in the .spec.features.domains.minio list to configure MINIO_DOMAIN
+// GetDomainHosts returns a list of hosts in the .spec.features.domains.minio list to configure S3_DOMAIN
 func (t *Tenant) GetDomainHosts() []string {
 	if t.HasMinIODomains() {
 		domains := t.Spec.Features.Domains.Minio

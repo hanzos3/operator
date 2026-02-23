@@ -29,9 +29,9 @@ import (
 
 const (
 	// OperatorCertificatesVersion is the ENV var to force the certificates api version to use.
-	OperatorCertificatesVersion = "MINIO_OPERATOR_CERTIFICATES_VERSION"
+	OperatorCertificatesVersion = "S3_OPERATOR_CERTIFICATES_VERSION"
 	// CSRSignerName is the name to use for the CSR Signer, will override the default
-	CSRSignerName = "MINIO_OPERATOR_CSR_SIGNER_NAME"
+	CSRSignerName = "S3_OPERATOR_CSR_SIGNER_NAME"
 	// EKSCsrSignerName is the signer we should use on EKS after version 1.22
 	EKSCsrSignerName = "beta.eks.amazonaws.com/app-serving"
 )

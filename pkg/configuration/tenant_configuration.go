@@ -28,7 +28,7 @@ import (
 )
 
 const (
-	bucketDNSEnv = "MINIO_DNS_WEBHOOK_ENDPOINT"
+	bucketDNSEnv = "S3_DNS_WEBHOOK_ENDPOINT"
 )
 
 // GetFullTenantConfig returns the full configuration for the tenant considering the secret and the tenant spec
@@ -37,16 +37,16 @@ func GetFullTenantConfig(tenant *miniov2.Tenant, configSecret *corev1.Secret) (s
 	rootUserFound := false
 	rootPwdFound := false
 	for _, env := range seededVars {
-		if env.Name == "MINIO_ROOT_USER" {
+		if env.Name == "S3_ROOT_USER" {
 			rootUserFound = true
 		}
-		if env.Name == "MINIO_ACCESS_KEY" {
+		if env.Name == "S3_ACCESS_KEY" {
 			rootUserFound = true
 		}
-		if env.Name == "MINIO_ROOT_PASSWORD" {
+		if env.Name == "S3_ROOT_PASSWORD" {
 			rootPwdFound = true
 		}
-		if env.Name == "MINIO_SECRET_KEY" {
+		if env.Name == "S3_SECRET_KEY" {
 			rootPwdFound = true
 		}
 	}
@@ -87,16 +87,16 @@ func buildTenantEnvs(tenant *miniov2.Tenant, cfgEnvExisting map[string]corev1.En
 	// within the container, only operator is supposed to perform
 	// these operations.
 	envVarsMap := map[string]corev1.EnvVar{
-		"MINIO_UPDATE": {
-			Name:  "MINIO_UPDATE",
+		"S3_UPDATE": {
+			Name:  "S3_UPDATE",
 			Value: "on",
 		},
-		"MINIO_UPDATE_MINISIGN_PUBKEY": {
-			Name:  "MINIO_UPDATE_MINISIGN_PUBKEY",
+		"S3_UPDATE_MINISIGN_PUBKEY": {
+			Name:  "S3_UPDATE_MINISIGN_PUBKEY",
 			Value: "RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav",
 		},
-		"MINIO_PROMETHEUS_JOB_ID": {
-			Name:  "MINIO_PROMETHEUS_JOB_ID",
+		"S3_PROMETHEUS_JOB_ID": {
+			Name:  "S3_PROMETHEUS_JOB_ID",
 			Value: tenant.PrometheusConfigJobName(),
 		},
 	}
@@ -173,36 +173,36 @@ func buildTenantEnvs(tenant *miniov2.Tenant, cfgEnvExisting map[string]corev1.En
 		}
 	}
 	if tenant.HasKESEnabled() {
-		envVarsMap["MINIO_KMS_KES_ENDPOINT"] = corev1.EnvVar{
-			Name:  "MINIO_KMS_KES_ENDPOINT",
+		envVarsMap["S3_KMS_KES_ENDPOINT"] = corev1.EnvVar{
+			Name:  "S3_KMS_KES_ENDPOINT",
 			Value: tenant.KESServiceEndpoint(),
 		}
-		envVarsMap["MINIO_KMS_KES_CERT_FILE"] = corev1.EnvVar{
-			Name:  "MINIO_KMS_KES_CERT_FILE",
+		envVarsMap["S3_KMS_KES_CERT_FILE"] = corev1.EnvVar{
+			Name:  "S3_KMS_KES_CERT_FILE",
 			Value: miniov2.MinIOCertPath + "/client.crt",
 		}
-		envVarsMap["MINIO_KMS_KES_KEY_FILE"] = corev1.EnvVar{
-			Name:  "MINIO_KMS_KES_KEY_FILE",
+		envVarsMap["S3_KMS_KES_KEY_FILE"] = corev1.EnvVar{
+			Name:  "S3_KMS_KES_KEY_FILE",
 			Value: miniov2.MinIOCertPath + "/client.key",
 		}
-		envVarsMap["MINIO_KMS_KES_CA_PATH"] = corev1.EnvVar{
-			Name:  "MINIO_KMS_KES_CA_PATH",
+		envVarsMap["S3_KMS_KES_CA_PATH"] = corev1.EnvVar{
+			Name:  "S3_KMS_KES_CA_PATH",
 			Value: miniov2.MinIOCertPath + "/CAs/kes.crt",
 		}
-		envVarsMap["MINIO_KMS_KES_CAPATH"] = corev1.EnvVar{
-			Name:  "MINIO_KMS_KES_CAPATH",
+		envVarsMap["S3_KMS_KES_CAPATH"] = corev1.EnvVar{
+			Name:  "S3_KMS_KES_CAPATH",
 			Value: miniov2.MinIOCertPath + "/CAs/kes.crt",
 		}
-		envVarsMap["MINIO_KMS_KES_KEY_NAME"] = corev1.EnvVar{
-			Name:  "MINIO_KMS_KES_KEY_NAME",
+		envVarsMap["S3_KMS_KES_KEY_NAME"] = corev1.EnvVar{
+			Name:  "S3_KMS_KES_KEY_NAME",
 			Value: tenant.Spec.KES.KeyName,
 		}
 	}
 
 	// attach tenant args
 	args := strings.Join(statefulsets.GetContainerArgs(tenant, ""), " ")
-	envVarsMap["MINIO_ARGS"] = corev1.EnvVar{
-		Name:  "MINIO_ARGS",
+	envVarsMap["S3_ARGS"] = corev1.EnvVar{
+		Name:  "S3_ARGS",
 		Value: args,
 	}
 

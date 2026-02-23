@@ -33,14 +33,14 @@ import (
 
 // Returns the MinIO environment variables set in configuration.
 // If a user specifies a secret in the spec (for MinIO credentials) we use
-// that to set MINIO_ROOT_USER & MINIO_ROOT_PASSWORD.
+// that to set S3_ROOT_USER & S3_ROOT_PASSWORD.
 func minioEnvironmentVars(skipEnvVars map[string][]byte) []corev1.EnvVar {
 	var envVars []corev1.EnvVar
 
 	envVarsMap := map[string]corev1.EnvVar{}
 
-	envVarsMap["MINIO_CONFIG_ENV_FILE"] = corev1.EnvVar{
-		Name:  "MINIO_CONFIG_ENV_FILE",
+	envVarsMap["S3_CONFIG_ENV_FILE"] = corev1.EnvVar{
+		Name:  "S3_CONFIG_ENV_FILE",
 		Value: miniov2.CfgFile,
 	}
 

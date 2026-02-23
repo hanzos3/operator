@@ -200,7 +200,7 @@ const StatefulSetLegacyPrefix = "zone"
 // MinIOPrometheusScrapeInterval defines how frequently to scrape targets.
 const MinIOPrometheusScrapeInterval = 30 * time.Second
 
-const tenantMinIOImageEnv = "TENANT_MINIO_IMAGE"
+const tenantMinIOImageEnv = "TENANT_S3_IMAGE"
 
 const tenantKesImageEnv = "TENANT_KES_IMAGE"
 

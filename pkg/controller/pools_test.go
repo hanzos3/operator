@@ -904,7 +904,7 @@ func Test_poolSSMatchesSpec(t *testing.T) {
 										Name: "minio",
 										Env: []corev1.EnvVar{
 											{
-												Name:  "MINIO_BROWSER_REDIRECT_URL",
+												Name:  "S3_BROWSER_REDIRECT_URL",
 												Value: "http://localhost:9000",
 											},
 										},
@@ -965,7 +965,7 @@ func Test_poolSSMatchesSpec(t *testing.T) {
 										Name: "minio",
 										Env: []corev1.EnvVar{
 											{
-												Name:  "MINIO_BROWSER_REDIRECT_URL",
+												Name:  "S3_BROWSER_REDIRECT_URL",
 												Value: "http://localhost:9000",
 											},
 										},

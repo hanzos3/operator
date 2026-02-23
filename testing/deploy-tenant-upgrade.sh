@@ -58,8 +58,8 @@ function bootstrap_tenant() {
 
   # Obtain root credentials
   TENANT_CONFIG_SECRET=$(kubectl -n $namespace get tenants $tenant -o jsonpath="{.spec.configuration.name}")
-  USER=$(kubectl -n $namespace get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export MINIO_ROOT_USER="' | sed -e 's/export MINIO_ROOT_USER="//g' | sed -e 's/"//g')
-  PASSWORD=$(kubectl -n $namespace get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export MINIO_ROOT_PASSWORD="' | sed -e 's/export MINIO_ROOT_PASSWORD="//g' | sed -e 's/"//g')
+  USER=$(kubectl -n $namespace get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export S3_ROOT_USER="' | sed -e 's/export S3_ROOT_USER="//g' | sed -e 's/"//g')
+  PASSWORD=$(kubectl -n $namespace get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export S3_ROOT_PASSWORD="' | sed -e 's/export S3_ROOT_PASSWORD="//g' | sed -e 's/"//g')
 
   echo "Creating alias with user ${USER}"
   mc alias set $alias https://localhost:$localport ${USER} ${PASSWORD} --insecure

@@ -57,7 +57,7 @@ spec:
           image: miniodev/operator-sts-example:minio-sdk-go
           imagePullPolicy: IfNotPresent
           env:
-            - name: MINIO_ENDPOINT
+            - name: S3_ENDPOINT
               value: https://minio.hanzo-s3-tenant-1.svc.cluster.local:443
             - name: STS_ENDPOINT
               value: https://sts.hanzo-s3-operator.svc.cluster.local:4223/sts

@@ -203,9 +203,9 @@ func (c *Controller) checkKESStatus(ctx context.Context, tenant *miniov2.Tenant,
 			}
 		}
 		// pass the identity of the MinIO client certificate
-		if !tenant.HasEnv("MINIO_KES_IDENTITY") {
+		if !tenant.HasEnv("S3_KES_IDENTITY") {
 			tenant.Spec.KES.Env = append(tenant.Spec.KES.Env, corev1.EnvVar{
-				Name:  "MINIO_KES_IDENTITY",
+				Name:  "S3_KES_IDENTITY",
 				Value: certificateClientIdentity,
 			})
 		}

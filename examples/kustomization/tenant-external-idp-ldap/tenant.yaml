@@ -8,19 +8,19 @@ spec:
     - name: storage-user
   ## Add environment variables to be set in Hanzo S3 container (https://github.com/minio/minio/tree/master/docs/config)
   env:
-    - name: MINIO_IDENTITY_LDAP_SERVER_ADDR
+    - name: S3_IDENTITY_LDAP_SERVER_ADDR
       value: "openldap.tenant-external-idp-ldap.svc.cluster.local:389"
-    - name: MINIO_IDENTITY_LDAP_LOOKUP_BIND_DN
+    - name: S3_IDENTITY_LDAP_LOOKUP_BIND_DN
       value: "cn=admin,dc=min,dc=io"
-    - name: MINIO_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD
+    - name: S3_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD
       value: "admin"
-    - name: MINIO_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN
+    - name: S3_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN
       value: "dc=min,dc=io"
-    - name: MINIO_IDENTITY_LDAP_USER_DN_SEARCH_FILTER
+    - name: S3_IDENTITY_LDAP_USER_DN_SEARCH_FILTER
       value: "(uid=%s)"
-    - name: MINIO_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN
+    - name: S3_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN
       value: "ou=swengg,dc=min,dc=io"
-    - name: MINIO_IDENTITY_LDAP_GROUP_SEARCH_FILTER
+    - name: S3_IDENTITY_LDAP_GROUP_SEARCH_FILTER
       value: "(&(objectclass=groupOfNames)(member=%d))"
-    - name: MINIO_IDENTITY_LDAP_SERVER_INSECURE
+    - name: S3_IDENTITY_LDAP_SERVER_INSECURE
       value: "on"

@@ -34,7 +34,7 @@ func AttachGeneratedConfig(tenant *miniov2.Tenant, fileContents string) string {
 		os.Exit(1)
 	}
 
-	fileContents = fileContents + fmt.Sprintf("export MINIO_ARGS=\"%s\"\n", args)
+	fileContents = fileContents + fmt.Sprintf("export S3_ARGS=\"%s\"\n", args)
 
 	return fileContents
 }

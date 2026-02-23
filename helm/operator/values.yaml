@@ -14,7 +14,7 @@ operator:
   #      value: "cluster.domain"
   #    - name: WATCHED_NAMESPACE
   #      value: ""
-  #    - name: MINIO_OPERATOR_RUNTIME
+  #    - name: S3_OPERATOR_RUNTIME
   #      value: "OpenShift"
   #
   # See `Operator environment variables <https://github.com/hanzos3/operator/blob/main/docs/env-variables.md>`__ for a list of all supported values.

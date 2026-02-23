@@ -39,29 +39,29 @@ func TestEnvVarsToFileContent(t *testing.T) {
 			args: args{
 				envVars: []corev1.EnvVar{
 					{
-						Name:  "MINIO_UPDATE",
+						Name:  "S3_UPDATE",
 						Value: "on",
 					},
 				},
 			},
-			want: "export MINIO_UPDATE=\"on\"\n",
+			want: "export S3_UPDATE=\"on\"\n",
 		},
 		{
 			name: "Two Vars test case",
 			args: args{
 				envVars: []corev1.EnvVar{
 					{
-						Name:  "MINIO_UPDATE",
+						Name:  "S3_UPDATE",
 						Value: "on",
 					},
 					{
-						Name:  "MINIO_UPDATE_MINISIGN_PUBKEY",
+						Name:  "S3_UPDATE_MINISIGN_PUBKEY",
 						Value: "RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav",
 					},
 				},
 			},
-			want: `export MINIO_UPDATE="on"
-export MINIO_UPDATE_MINISIGN_PUBKEY="RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav"
+			want: `export S3_UPDATE="on"
+export S3_UPDATE_MINISIGN_PUBKEY="RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav"
 `,
 		},
 	}
@@ -92,23 +92,23 @@ func TestGetTenantConfiguration(t *testing.T) {
 			},
 			want: []corev1.EnvVar{
 				{
-					Name:  "MINIO_ARGS",
+					Name:  "S3_ARGS",
 					Value: "",
 				},
 				{
-					Name:  "MINIO_PROMETHEUS_JOB_ID",
+					Name:  "S3_PROMETHEUS_JOB_ID",
 					Value: "minio-job",
 				},
 				{
-					Name:  "MINIO_SERVER_URL",
+					Name:  "S3_SERVER_URL",
 					Value: "https://minio..svc.cluster.local:443",
 				},
 				{
-					Name:  "MINIO_UPDATE",
+					Name:  "S3_UPDATE",
 					Value: "on",
 				},
 				{
-					Name:  "MINIO_UPDATE_MINISIGN_PUBKEY",
+					Name:  "S3_UPDATE_MINISIGN_PUBKEY",
 					Value: "RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav",
 				},
 			},
@@ -130,23 +130,23 @@ func TestGetTenantConfiguration(t *testing.T) {
 			},
 			want: []corev1.EnvVar{
 				{
-					Name:  "MINIO_ARGS",
+					Name:  "S3_ARGS",
 					Value: "",
 				},
 				{
-					Name:  "MINIO_PROMETHEUS_JOB_ID",
+					Name:  "S3_PROMETHEUS_JOB_ID",
 					Value: "minio-job",
 				},
 				{
-					Name:  "MINIO_SERVER_URL",
+					Name:  "S3_SERVER_URL",
 					Value: "https://minio..svc.cluster.local:443",
 				},
 				{
-					Name:  "MINIO_UPDATE",
+					Name:  "S3_UPDATE",
 					Value: "on",
 				},
 				{
-					Name:  "MINIO_UPDATE_MINISIGN_PUBKEY",
+					Name:  "S3_UPDATE_MINISIGN_PUBKEY",
 					Value: "RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav",
 				},
 				{
@@ -179,27 +179,27 @@ func TestParseConfEnvSecret(t *testing.T) {
 			name: "Basic case",
 			args: args{
 				secret: &corev1.Secret{
-					Data: map[string][]byte{"config.env": []byte(`export MINIO_ROOT_USER="minio"
-export MINIO_ROOT_PASSWORD="minio123"
-export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-export MINIO_BROWSER="on"`)},
+					Data: map[string][]byte{"config.env": []byte(`export S3_ROOT_USER="minio"
+export S3_ROOT_PASSWORD="minio123"
+export S3_STORAGE_CLASS_STANDARD="EC:2"
+export S3_BROWSER="on"`)},
 				},
 			},
 			want: map[string]corev1.EnvVar{
-				"MINIO_ROOT_USER": {
-					Name:  "MINIO_ROOT_USER",
+				"S3_ROOT_USER": {
+					Name:  "S3_ROOT_USER",
 					Value: "minio",
 				},
-				"MINIO_ROOT_PASSWORD": {
-					Name:  "MINIO_ROOT_PASSWORD",
+				"S3_ROOT_PASSWORD": {
+					Name:  "S3_ROOT_PASSWORD",
 					Value: "minio123",
 				},
-				"MINIO_STORAGE_CLASS_STANDARD": {
-					Name:  "MINIO_STORAGE_CLASS_STANDARD",
+				"S3_STORAGE_CLASS_STANDARD": {
+					Name:  "S3_STORAGE_CLASS_STANDARD",
 					Value: "EC:2",
 				},
-				"MINIO_BROWSER": {
-					Name:  "MINIO_BROWSER",
+				"S3_BROWSER": {
+					Name:  "S3_BROWSER",
 					Value: "on",
 				},
 			},
@@ -208,27 +208,27 @@ export MINIO_BROWSER="on"`)},
 			name: "Basic case has tabs",
 			args: args{
 				secret: &corev1.Secret{
-					Data: map[string][]byte{"config.env": []byte(`	export MINIO_ROOT_USER="minio"
-	export MINIO_ROOT_PASSWORD="minio123"
-	export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-	export MINIO_BROWSER="on"`)},
+					Data: map[string][]byte{"config.env": []byte(`	export S3_ROOT_USER="minio"
+	export S3_ROOT_PASSWORD="minio123"
+	export S3_STORAGE_CLASS_STANDARD="EC:2"
+	export S3_BROWSER="on"`)},
 				},
 			},
 			want: map[string]corev1.EnvVar{
-				"MINIO_ROOT_USER": {
-					Name:  "MINIO_ROOT_USER",
+				"S3_ROOT_USER": {
+					Name:  "S3_ROOT_USER",
 					Value: "minio",
 				},
-				"MINIO_ROOT_PASSWORD": {
-					Name:  "MINIO_ROOT_PASSWORD",
+				"S3_ROOT_PASSWORD": {
+					Name:  "S3_ROOT_PASSWORD",
 					Value: "minio123",
 				},
-				"MINIO_STORAGE_CLASS_STANDARD": {
-					Name:  "MINIO_STORAGE_CLASS_STANDARD",
+				"S3_STORAGE_CLASS_STANDARD": {
+					Name:  "S3_STORAGE_CLASS_STANDARD",
 					Value: "EC:2",
 				},
-				"MINIO_BROWSER": {
-					Name:  "MINIO_BROWSER",
+				"S3_BROWSER": {
+					Name:  "S3_BROWSER",
 					Value: "on",
 				},
 			},
@@ -267,21 +267,21 @@ func TestGetFullTenantConfig(t *testing.T) {
 					},
 				},
 				configSecret: &corev1.Secret{
-					Data: map[string][]byte{"config.env": []byte(`export MINIO_ROOT_USER="minio"
-export MINIO_ROOT_PASSWORD="minio123"
-export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-export MINIO_BROWSER="on"`)},
+					Data: map[string][]byte{"config.env": []byte(`export S3_ROOT_USER="minio"
+export S3_ROOT_PASSWORD="minio123"
+export S3_STORAGE_CLASS_STANDARD="EC:2"
+export S3_BROWSER="on"`)},
 				},
 			},
-			want: `export MINIO_ARGS=""
-export MINIO_BROWSER="on"
-export MINIO_PROMETHEUS_JOB_ID="minio-job"
-export MINIO_ROOT_PASSWORD="minio123"
-export MINIO_ROOT_USER="minio"
-export MINIO_SERVER_URL="https://minio..svc.cluster.local:443"
-export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-export MINIO_UPDATE="on"
-export MINIO_UPDATE_MINISIGN_PUBKEY="RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav"
+			want: `export S3_ARGS=""
+export S3_BROWSER="on"
+export S3_PROMETHEUS_JOB_ID="minio-job"
+export S3_ROOT_PASSWORD="minio123"
+export S3_ROOT_USER="minio"
+export S3_SERVER_URL="https://minio..svc.cluster.local:443"
+export S3_STORAGE_CLASS_STANDARD="EC:2"
+export S3_UPDATE="on"
+export S3_UPDATE_MINISIGN_PUBKEY="RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav"
 export TEST="value"
 `,
 		},
@@ -304,22 +304,22 @@ export TEST="value"
 					},
 				},
 				configSecret: &corev1.Secret{
-					Data: map[string][]byte{"config.env": []byte(`export MINIO_ROOT_USER="minio"
-export MINIO_ROOT_PASSWORD="minio123"
-export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-export MINIO_BROWSER="on"`)},
+					Data: map[string][]byte{"config.env": []byte(`export S3_ROOT_USER="minio"
+export S3_ROOT_PASSWORD="minio123"
+export S3_STORAGE_CLASS_STANDARD="EC:2"
+export S3_BROWSER="on"`)},
 				},
 			},
-			want: `export MINIO_ARGS=""
-export MINIO_BROWSER="on"
-export MINIO_BROWSER_REDIRECT_URL="http://console.minio"
-export MINIO_PROMETHEUS_JOB_ID="minio-job"
-export MINIO_ROOT_PASSWORD="minio123"
-export MINIO_ROOT_USER="minio"
-export MINIO_SERVER_URL="https://minio..svc.cluster.local:443"
-export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-export MINIO_UPDATE="on"
-export MINIO_UPDATE_MINISIGN_PUBKEY="RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav"
+			want: `export S3_ARGS=""
+export S3_BROWSER="on"
+export S3_BROWSER_REDIRECT_URL="http://console.minio"
+export S3_PROMETHEUS_JOB_ID="minio-job"
+export S3_ROOT_PASSWORD="minio123"
+export S3_ROOT_USER="minio"
+export S3_SERVER_URL="https://minio..svc.cluster.local:443"
+export S3_STORAGE_CLASS_STANDARD="EC:2"
+export S3_UPDATE="on"
+export S3_UPDATE_MINISIGN_PUBKEY="RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav"
 export TEST="value"
 `,
 		},
@@ -354,22 +354,22 @@ export TEST="value"
 					},
 				},
 				configSecret: &corev1.Secret{
-					Data: map[string][]byte{"config.env": []byte(`export MINIO_ROOT_USER="minio"
-export MINIO_ROOT_PASSWORD="minio123"
-export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-export MINIO_BROWSER="on"`)},
+					Data: map[string][]byte{"config.env": []byte(`export S3_ROOT_USER="minio"
+export S3_ROOT_PASSWORD="minio123"
+export S3_STORAGE_CLASS_STANDARD="EC:2"
+export S3_BROWSER="on"`)},
 				},
 			},
-			want: `export MINIO_ARGS="https://tenant-pool-0-{0...3}.tenant-hl.ns-x.svc.cluster.local/export{0...3}"
-export MINIO_BROWSER="on"
-export MINIO_BROWSER_REDIRECT_URL="http://console.minio"
-export MINIO_PROMETHEUS_JOB_ID="minio-job"
-export MINIO_ROOT_PASSWORD="minio123"
-export MINIO_ROOT_USER="minio"
-export MINIO_SERVER_URL="https://minio.ns-x.svc.cluster.local:443"
-export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-export MINIO_UPDATE="on"
-export MINIO_UPDATE_MINISIGN_PUBKEY="RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav"
+			want: `export S3_ARGS="https://tenant-pool-0-{0...3}.tenant-hl.ns-x.svc.cluster.local/export{0...3}"
+export S3_BROWSER="on"
+export S3_BROWSER_REDIRECT_URL="http://console.minio"
+export S3_PROMETHEUS_JOB_ID="minio-job"
+export S3_ROOT_PASSWORD="minio123"
+export S3_ROOT_USER="minio"
+export S3_SERVER_URL="https://minio.ns-x.svc.cluster.local:443"
+export S3_STORAGE_CLASS_STANDARD="EC:2"
+export S3_UPDATE="on"
+export S3_UPDATE_MINISIGN_PUBKEY="RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav"
 export TEST="value"
 `,
 		},

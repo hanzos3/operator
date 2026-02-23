@@ -108,8 +108,8 @@ function test_kes_tenant() {
 
   TENANT_CONFIG_SECRET=$(kubectl -n tenant-kms-encrypted get tenants.minio.min.io myminio -o jsonpath="{.spec.configuration.name}")
   # kes-tenant-env-configuration
-  USER=$(kubectl -n tenant-kms-encrypted get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export MINIO_ROOT_USER="' | sed -e 's/export MINIO_ROOT_USER="//g' | sed -e 's/"//g')
-  PASSWORD=$(kubectl -n tenant-kms-encrypted get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export MINIO_ROOT_PASSWORD="' | sed -e 's/export MINIO_ROOT_PASSWORD="//g' | sed -e 's/"//g')
+  USER=$(kubectl -n tenant-kms-encrypted get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export S3_ROOT_USER="' | sed -e 's/export S3_ROOT_USER="//g' | sed -e 's/"//g')
+  PASSWORD=$(kubectl -n tenant-kms-encrypted get secrets "$TENANT_CONFIG_SECRET" -o go-template='{{index .data "config.env"|base64decode }}' | grep 'export S3_ROOT_PASSWORD="' | sed -e 's/export S3_ROOT_PASSWORD="//g' | sed -e 's/"//g')
 
   totalwait=0
   until (mc alias set kestest https://localhost:9000 $USER $PASSWORD --insecure); do
