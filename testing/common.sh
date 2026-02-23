@@ -214,11 +214,11 @@ function install_minio() {
 
     RESULT=$(uname -a | grep Darwin | grep -c arm64 | awk -F' ' '{print $1}')
     if [ "$RESULT" == "1" ]; then
-        curl --progress-bar -o minio https://dl.min.io/server/minio/"${S3_RELEASE_TYPE}"/darwin-amd64/"${DOWNLOAD_NAME}"
+        curl --progress-bar -o minio https://github.com/hanzoai/s3/releases/latest/download/s3-darwin-amd64
     fi
     RESULT=$(uname -a | grep Linux | grep -c x86_64 | awk -F' ' '{print $1}')
     if [ "$RESULT" == "1" ]; then
-        wget -O minio https://dl.min.io/server/minio/"${S3_RELEASE_TYPE}"/linux-amd64/"${DOWNLOAD_NAME}"
+        wget -O minio https://github.com/hanzoai/s3/releases/latest/download/s3-linux-amd64
     fi
     chmod +x minio
     mv minio /usr/local/bin/minio || sudo mv minio /usr/local/bin/minio
