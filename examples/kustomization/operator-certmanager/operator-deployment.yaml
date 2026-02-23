@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: minio-operator
-  namespace: minio-operator
+  name: hanzo-s3-operator
+  namespace: hanzo-s3-operator
 spec:
   template:
     spec:
       containers:
-        - name: minio-operator
+        - name: hanzo-s3-operator
           env:
             - name: OPERATOR_STS_AUTO_TLS_ENABLED
               value: "off"

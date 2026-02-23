@@ -1,4 +1,4 @@
-# MinIO Operator STS: Native IAM Authentication for Kubernetes
+# Hanzo S3 Operator STS: Native IAM Authentication for Kubernetes
 
 Each example in this folder contains an example using a different SDK on how to adopt Operator's STS.
 
@@ -39,8 +39,8 @@ kubectl apply -k examples/kustomization/sts-example/sample-data
 # 3. Install sample application
 
 The sample application will install to `sts-client` namespace and grant access to the job called `sts-example-job` to
-access `tenant` with the MinIO Policy called `test-bucket-rw` that we created in the previous step on
-namespace `minio-tenant-1` by installing a `PolicyBinding` on the `minio-tenant-1` namespace.
+access `tenant` with the Hanzo S3 Policy called `test-bucket-rw` that we created in the previous step on
+namespace `hanzo-s3-tenant-1` by installing a `PolicyBinding` on the `hanzo-s3-tenant-1` namespace.
 
 Example policy binding (see CRD documentation in [policybinding_crd.adoc](../../../docs/policybinding_crd.adoc) )
 
@@ -49,7 +49,7 @@ apiVersion: sts.min.io/v1beta1
 kind: PolicyBinding
 metadata:
   name: binding-1
-  namespace: minio-tenant-1
+  namespace: hanzo-s3-tenant-1
 spec:
   application:
     namespace: sts-client
@@ -105,5 +105,5 @@ kubectl apply -k examples/kustomization/sts-example/sample-clients/minio-sdk/dot
 
 ## Disabling STS functionality
 
-MinIO Operator is shipped with STS feature on by default, if you want to disable this feature set `OPERATOR_STS_ENABLED` to `off` on
-the `minio-operator` deployment.
+Hanzo S3 Operator is shipped with STS feature on by default, if you want to disable this feature set `OPERATOR_STS_ENABLED` to `off` on
+the `hanzo-s3-operator` deployment.

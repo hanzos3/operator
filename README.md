@@ -50,7 +50,7 @@ Hanzo S3 supports no more than *one* tenant per namespace. The following `kubect
 for the tenant.
 
 ```sh
-kubectl create namespace minio-tenant
+kubectl create namespace hanzo-s3-tenant
 ```
 
 ### Tenant Storage Class
@@ -140,14 +140,14 @@ kubectl kustomize github.com/hanzos3/operator\?ref=v7.1.1 | kubectl apply -f -
 Run the following command to verify the status of the Operator:
 
 ```sh
-kubectl get pods -n minio-operator
+kubectl get pods -n hanzo-s3-operator
 ```
 
 The output resembles the following:
 
 ```sh
 NAME                              READY   STATUS    RESTARTS   AGE
-minio-operator-69fd675557-lsrqg   1/1     Running   0          99s
+hanzo-s3-operator-69fd675557-lsrqg   1/1     Running   0          99s
 ```
 
 ### 2) Build the Tenant Configuration
@@ -173,12 +173,12 @@ resembles the following:
 
 ```sh
 NAME                             TYPE            CLUSTER-IP        EXTERNAL-IP   PORT(S)
-minio                            LoadBalancer    10.104.10.9       <pending>     443:31834/TCP
+hanzo-s3                         LoadBalancer    10.104.10.9       <pending>     443:31834/TCP
 myminio-console           LoadBalancer    10.104.216.5      <pending>     9443:31425/TCP
 myminio-hl                ClusterIP       None              <none>        9000/TCP
 ```
 
-Applications *internal* to the Kubernetes cluster should use the `minio` service for performing object storage
+Applications *internal* to the Kubernetes cluster should use the `hanzo-s3` service for performing object storage
 operations on the tenant.
 
 Administrators of the tenant should use the `myminio-console` service to access the console and manage the

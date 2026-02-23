@@ -3,10 +3,10 @@
 To configure Hanzo S3 Operator to trust custom certificates, create a secret with the certificate.
 
 ```shell
-kubectl create secret generic my-custom-tls -n minio-operator --from-file=path/to/public.crt
+kubectl create secret generic my-custom-tls -n hanzo-s3-operator --from-file=path/to/public.crt
 ```
 
-Then, add the following volume to the `minio-operator` deployment under `.spec.template.spec`,
+Then, add the following volume to the `hanzo-s3-operator` deployment under `.spec.template.spec`,
 
 ```yaml
       volumes:

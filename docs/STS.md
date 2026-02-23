@@ -34,7 +34,7 @@ using the following steps:
 ## Enabling STS functionality
 
 Operator STS was first introduced on v5.0.0, by default turned off, starting Operator v5.0.11 the STS feature ships `on` by default. 
-On versions > 5.0.0 and < 5.0.11 to turn it on, switch `OPERATOR_STS_ENABLED` to `on` in the `minio-operator` deployment.
+On versions > 5.0.0 and < 5.0.11 to turn it on, switch `OPERATOR_STS_ENABLED` to `on` in the `hanzo-s3-operator` deployment.
 
 ## TLS
 

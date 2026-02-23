@@ -3,12 +3,12 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: tenant-prometheus-sa
-  namespace: minio-tenant
+  namespace: hanzo-s3-tenant
 ---
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: minio-tenant-prometheus-psp
+  name: hanzo-s3-tenant-prometheus-psp
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 spec:
@@ -55,12 +55,12 @@ spec:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: minio-tenant-prometheus-cluster-role
+  name: hanzo-s3-tenant-prometheus-cluster-role
 rules:
   - apiGroups:
       - policy
     resourceNames:
-      - minio-tenant-prometheus-psp
+      - hanzo-s3-tenant-prometheus-psp
     resources:
       - podsecuritypolicies
     verbs:
@@ -69,12 +69,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: minio-tenant-prometheus-role-binding
-  namespace: minio-tenant
+  name: hanzo-s3-tenant-prometheus-role-binding
+  namespace: hanzo-s3-tenant
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: minio-tenant-prometheus-cluster-role
+  name: hanzo-s3-tenant-prometheus-cluster-role
 subjects:
   - kind: ServiceAccount
     name: tenant-prometheus-sa

@@ -16,7 +16,7 @@ the `examples/kustomization/base` directory and can be used like:
 kubectl apply -k github.com/hanzos3/operator/examples/kustomization/base
 ```
 
-This will create a tenant with the name `myminio` in the namespace `minio-tenant`. The tenant will have 4 servers and 4
+This will create a tenant with the name `myminio` in the namespace `hanzo-s3-tenant`. The tenant will have 4 servers and 4
 drives per server (16 drives in total) with a total capacity of 16Ti. The tenant will use the default storage class for
 storage.
 
@@ -29,7 +29,7 @@ create a `kustomization.yaml` like:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: minio-tenant
+namespace: hanzo-s3-tenant
 
 resources:
   - github.com/hanzos3/operator/examples/kustomization/base
@@ -45,12 +45,12 @@ apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
   name: myminio
-  namespace: minio-tenant
+  namespace: hanzo-s3-tenant
 spec:
-  image: quay.io/minio/minio:RELEASE.2024-03-15T01-07-19Z 
+  image: ghcr.io/hanzos3/s3:RELEASE.2024-03-15T01-07-19Z 
 ```
 
-This will create a tenant with the name `myminio` in the namespace `minio-tenant` with the Hanzo S3 version specified in
+This will create a tenant with the name `myminio` in the namespace `hanzo-s3-tenant` with the Hanzo S3 version specified in
 your overlay.
 
 Assuming you placed the `kustomization.yaml` and `tenant.yaml` in the same directory, you can create the tenant like:
@@ -64,11 +64,11 @@ kubectl apply -k .
 You can create a single static YAML file containing an example tenant as shown below:
 
 ```yaml
-kubectl kustomize github.com/hanzos3/operator/examples/kustomization/base > minio-tenant.yaml
+kubectl kustomize github.com/hanzos3/operator/examples/kustomization/base > hanzo-s3-tenant.yaml
 ```
 
 The YAML will have all the necessary fields to create a tenant. You can then apply the YAML to create the tenant:
 
 ```shell
-kubectl apply -f minio-tenant.yaml
+kubectl apply -f hanzo-s3-tenant.yaml
 ```

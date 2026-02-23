@@ -21,7 +21,7 @@ The following example configures a warp container to run in the same pod as the 
   sideCars:
     containers:
       - name: warp
-        image: minio/warp:v0.3.21
+        image: ghcr.io/hanzos3/warp:v0.3.21
         args:
           - client
         ports:

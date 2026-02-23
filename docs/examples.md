@@ -74,28 +74,28 @@ This example will deploy a Hanzo S3 tenant with TLS using certificates provided 
 
 - You can generate certificates using `Vault CA`, `Openssl` or `Mkcert`, for this example we will
   use https://github.com/FiloSottile/mkcert
-- Assuming your Tenant name is `myminio` and your namespace is `minio-tenant` you should generate the following
+- Assuming your Tenant name is `myminio` and your namespace is `hanzo-s3-tenant` you should generate the following
   certificate keypairs:
 
   ```sh
-    mkcert "minio.minio-tenant.svc.cluster.local"
-    mkcert "*.myminio.minio-tenant.svc.cluster.local"
-    mkcert "*.myminio-hl.minio-tenant.svc.cluster.local"
+    mkcert "minio.hanzo-s3-tenant.svc.cluster.local"
+    mkcert "*.myminio.hanzo-s3-tenant.svc.cluster.local"
+    mkcert "*.myminio-hl.hanzo-s3-tenant.svc.cluster.local"
   ```
 
-`Hanzo S3` will use `*.minio-tenant.svc.cluster.local`, `*.myminio.minio-tenant.svc.cluster.local`
-and `*.myminio-hl.minio-tenant.svc.cluster.local` certificates for
+`Hanzo S3` will use `*.hanzo-s3-tenant.svc.cluster.local`, `*.myminio.hanzo-s3-tenant.svc.cluster.local`
+and `*.myminio-hl.hanzo-s3-tenant.svc.cluster.local` certificates for
 inter-node communication.
 
 Create `kubernetes secrets`  based on the previous certificates
 
 ```$xslt
-kubectl create secret tls minio-tls-cert --key="minio.minio-tenant.svc.cluster.local-key.pem" --cert="minio.minio-tenant.svc.cluster.local.pem" -n minio-tenant
-kubectl create secret tls minio-buckets-cert --key="_wildcard.myminio.minio-tenant.svc.cluster.local-key.pem" --cert="_wildcard.myminio.minio-tenant.svc.cluster.local.pem" -n minio-tenant
-kubectl create secret tls minio-hl-cert --key="_wildcard.myminio-hl.minio-tenant.svc.cluster.local-key.pem" --cert="_wildcard.myminio-hl.minio-tenant.svc.cluster.local.pem" -n minio-tenant
+kubectl create secret tls minio-tls-cert --key="minio.hanzo-s3-tenant.svc.cluster.local-key.pem" --cert="minio.hanzo-s3-tenant.svc.cluster.local.pem" -n hanzo-s3-tenant
+kubectl create secret tls minio-buckets-cert --key="_wildcard.myminio.hanzo-s3-tenant.svc.cluster.local-key.pem" --cert="_wildcard.myminio.hanzo-s3-tenant.svc.cluster.local.pem" -n hanzo-s3-tenant
+kubectl create secret tls minio-hl-cert --key="_wildcard.myminio-hl.hanzo-s3-tenant.svc.cluster.local-key.pem" --cert="_wildcard.myminio-hl.hanzo-s3-tenant.svc.cluster.local.pem" -n hanzo-s3-tenant
 
 # create a new secret for the operator certs
-kubectl create secret tls operator-ca-tls-minio-tls-cert --key="minio.minio-tenant.svc.cluster.local-key.pem" --cert="minio.minio-tenant.svc.cluster.local.pem" -n minio-tenant
+kubectl create secret tls operator-ca-tls-minio-tls-cert --key="minio.hanzo-s3-tenant.svc.cluster.local-key.pem" --cert="minio.hanzo-s3-tenant.svc.cluster.local.pem" -n hanzo-s3-tenant
 ```
 
 You need to provide those `kubernetes secrets` in your Tenant `YAML` overlay using the `externalCertSecret` fields, ie:
@@ -121,7 +121,7 @@ via [SNI](https://en.wikipedia.org/wiki/Server_Name_Indication)
 
 ## Hanzo S3 Tenant with TLS via customer provided certificates and Encryption enabled via Vault KMS
 
-This example will deploy a minio tenant using mTLS certificates (authentication between `Hanzo S3` and `KES`) provided by
+This example will deploy a Hanzo S3 tenant using mTLS certificates (authentication between Hanzo S3 and KES) provided by
 the user, the data will be encrypted at rest
 
 ### Prerequisites
@@ -130,7 +130,7 @@ the user, the data will be encrypted at rest
 - Set the `app-role-id`, the `app-role-secret-id` and `key-prefix` in your KES configuration `YAML` file
 - Assuming your Tenant name is `myminio` and namespace is `tenant-kms-encrypted` create all the certificates and
   secrets as in the previous step
-- Generate new `KES` identity keypair (https://github.com/minio/kes), this is needed it for the authentication, `mTLS`
+- Generate new `KES` identity keypair (https://github.com/hanzos3/kes), this is needed it for the authentication, `mTLS`
   between `Hanzo S3` and `KES`:
 
   ```sh

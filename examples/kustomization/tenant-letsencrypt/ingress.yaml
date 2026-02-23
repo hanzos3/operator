@@ -9,11 +9,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - minio.example.com
+        - s3.example.com
         - console.example.com
       secretName: tenant-tls
   rules:
-    - host: minio.example.com
+    - host: s3.example.com
       http:
         paths:
           - pathType: Prefix

@@ -4,9 +4,9 @@
 [id="{p}-api-reference"]
 == API Reference
 
-:minio-image: https://hub.docker.com/r/minio/minio/tags[minio/minio:RELEASE.2025-04-08T15-41-24Z]
-:kes-image: https://hub.docker.com/r/minio/kes/tags[minio/kes:2025-03-12T09-35-18Z]
-:mc-image: https://hub.docker.com/r/minio/mc/tags[minio/mc:RELEASE.2024-10-02T08-27-28Z]
+:minio-image: https://github.com/hanzos3/operator/pkgs[ghcr.io/hanzos3/s3:RELEASE.2025-04-08T15-41-24Z]
+:kes-image: https://github.com/hanzos3/kes/pkgs[ghcr.io/hanzos3/kes:2025-03-12T09-35-18Z]
+:mc-image: https://github.com/hanzos3/mc/pkgs[ghcr.io/hanzos3/mc:RELEASE.2024-10-02T08-27-28Z]
 
 
 [id="{anchor_prefix}-sts-min-io-v1beta1"]
@@ -15,7 +15,7 @@
 Package v1beta1 - The following parameters are specific to the `sts.min.io/v1beta1` Hanzo S3 Policy Binding CRD API
 PolicyBinding is an Authorization mechanism managed by the Hanzo S3 Operator.
 Using Kubernetes ServiceAccount JSON Web Tokens the binding allow a ServiceAccount to assume temporary IAM credentials.
-For more complete documentation on this object, see the https://docs.min.io/minio/k8s/reference/minio-operator-reference.html#minio-operator-yaml-reference[MinIO Kubernetes Documentation].
+For more complete documentation on this object, see the https://s3.hanzo.ai/docs/minio/k8s/reference/minio-operator-reference.html#minio-operator-yaml-reference[Hanzo S3 Kubernetes Documentation].
 PolicyBinding is added as part of the Hanzo S3 Operator v5.0.0. +
 
 .Resource Types

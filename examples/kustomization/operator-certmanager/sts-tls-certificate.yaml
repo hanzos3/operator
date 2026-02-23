@@ -2,12 +2,12 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: sts-certmanager-cert
-  namespace: minio-operator
+  namespace: hanzo-s3-operator
 spec:
   dnsNames:
     - sts
-    - sts.minio-operator.svc
-    - sts.minio-operator.svc.cluster.local
+    - sts.hanzo-s3-operator.svc
+    - sts.hanzo-s3-operator.svc.cluster.local
   secretName: sts-tls
   issuerRef:
-    name: minio-operator-ca-issuer
+    name: hanzo-s3-operator-ca-issuer

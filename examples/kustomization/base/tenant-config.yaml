@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: storage-configuration
-  namespace: minio-tenant
+  namespace: hanzo-s3-tenant
 type: Opaque
 stringData:
   config.env: |-

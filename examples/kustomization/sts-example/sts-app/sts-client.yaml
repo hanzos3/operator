@@ -58,11 +58,11 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: MINIO_ENDPOINT
-              value: https://minio.minio-tenant-1.svc.cluster.local:443
+              value: https://minio.hanzo-s3-tenant-1.svc.cluster.local:443
             - name: STS_ENDPOINT
-              value: https://sts.minio-operator.svc.cluster.local:4223/sts
+              value: https://sts.hanzo-s3-operator.svc.cluster.local:4223/sts
             - name: TENANT_NAMESPACE
-              value: minio-tenant-1
+              value: hanzo-s3-tenant-1
             - name: BUCKET
               value: test-bucket
             - name: AWS_WEB_IDENTITY_TOKEN_FILE

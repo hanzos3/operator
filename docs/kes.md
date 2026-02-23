@@ -1,4 +1,4 @@
-# Hanzo S3 Operator KES Configuration [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Hanzo S3 Operator KES Configuration 
 
 This document explains how to enable KES with Hanzo S3 Operator.
 
@@ -8,9 +8,9 @@ This document explains how to enable KES with Hanzo S3 Operator.
 
 - Hanzo S3 Operator up and running as explained in the [document here](https://github.com/hanzos3/operator#operator-setup).
 - KES requires a KMS backend
-  in [configuration](https://raw.githubusercontent.com/minio/operator/master/examples/kes-secret.yaml). Currently KES
-  supports [AWS Secrets Manager](https://github.com/minio/kes/wiki/AWS-SecretsManager)
-  and [Hashicorp Vault](https://github.com/minio/kes/wiki/Hashicorp-Vault-Keystore) as KMS backend for production.S Set
+  in [configuration](https://raw.githubusercontent.com/hanzos3/operator/master/examples/kes-secret.yaml). Currently KES
+  supports [AWS Secrets Manager](https://github.com/hanzos3/kes/wiki/AWS-SecretsManager)
+  and [Hashicorp Vault](https://github.com/hanzos3/kes/wiki/Hashicorp-Vault-Keystore) as KMS backend for production.S Set
   up one of these as the KMS backend before setting up KES.
 
 ### Create Hanzo S3 Tenant
@@ -27,7 +27,7 @@ kubectl apply -k github.com/hanzos3/operator/examples/kustomization/tenant-kes-e
 ## KES Configuration
 
 KES Configuration is a part of Tenant yaml file. Check the sample
-file [available here](https://raw.githubusercontent.com/minio/operator/master/examples/kustomization/tenant-kes-encryption/tenant.yaml).
+file [available here](https://raw.githubusercontent.com/hanzos3/operator/master/examples/kustomization/tenant-kes-encryption/tenant.yaml).
 The config offers below options
 
 ### KES Fields

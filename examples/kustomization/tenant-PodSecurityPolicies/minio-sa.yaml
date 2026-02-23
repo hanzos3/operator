@@ -5,7 +5,7 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: minio-tenant-psp
+  name: hanzo-s3-tenant-psp
   # annotations:
   #   # docker/default identifies a profile for seccomp, but it is not particularly tied to the Docker runtime
   #   seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
@@ -55,12 +55,12 @@ spec:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: minio-tenant-cluster-role
+  name: hanzo-s3-tenant-cluster-role
 rules:
   - apiGroups:
       - policy
     resourceNames:
-      - minio-tenant-psp
+      - hanzo-s3-tenant-psp
     resources:
       - podsecuritypolicies
     verbs:
@@ -69,12 +69,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: minio-tenant-role-binding
-  namespace: minio-tenant
+  name: hanzo-s3-tenant-role-binding
+  namespace: hanzo-s3-tenant
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: minio-tenant-cluster-role
+  name: hanzo-s3-tenant-cluster-role
 subjects:
   - apiGroup: rbac.authorization.k8s.io
     kind: Group

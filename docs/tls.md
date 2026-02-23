@@ -1,4 +1,4 @@
-# Hanzo S3 TLS Configuration [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Hanzo S3 TLS Configuration 
 
 This document explains how to enable TLS on Hanzo S3 pods.
 

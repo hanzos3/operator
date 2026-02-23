@@ -1,4 +1,4 @@
-# Custom Hostname Discovery [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Custom Hostname Discovery 
 
 This document explains how to control the names used for host discovery. This allows us to discover hosts using external
 name services, which is useful for serving with trusted certificates.

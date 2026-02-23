@@ -1,4 +1,4 @@
-# Ingress Configuration [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Ingress Configuration 
 
 Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is
 controlled by rules defined on the Ingress resource. This document explains how to enable Ingress for a Hanzo S3 Tenant
@@ -13,7 +13,7 @@ using the [Nginx Ingress Controller](https://kubernetes.github.io/ingress-nginx/
 - Nginx Ingress Controller installed and running as
   explained [here](https://kubernetes.github.io/ingress-nginx/deploy/).
 - Network routing rules that enable external client access to Kubernetes worker nodes. For example, this tutorial
-  assumes `minio.example.com` and `console.minio.example.com` as an externally resolvable URL.
+  assumes `s3.example.com` and `console.s3.example.com` as an externally resolvable URL.
 
 ### Create Hanzo S3 Tenant
 
@@ -21,7 +21,7 @@ Create the Hanzo S3 tenant if one does not already exist.
 See [Deploy a Hanzo S3 Tenant using the Hanzo S3 Operator](https://s3.hanzo.ai/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-minio-tenant.html).
 
 The following example deploys a Hanzo S3 Tenant with 4 servers and 16 volumes in total and a total capacity of 16 Terabytes
-into the `minio-tenant` namespace using the default Kubernetes storage class. Change these values as appropriate for
+into the `hanzo-s3-tenant` namespace using the default Kubernetes storage class. Change these values as appropriate for
 your requirements.
 
 ```sh
@@ -34,17 +34,17 @@ To enable TLS termination at Ingress, we'll need to either acquire a CA certific
 Either way, after acquiring the certificate, we'll need to create a secret with the certificate as its content. We'll
 then need to refer this secret from the Ingress rule.
 
-The following example creates a self-signed certificate for `minio.example.com` and then adds it to a Kubernetes secret
+The following example creates a self-signed certificate for `s3.example.com` and then adds it to a Kubernetes secret
 using the below commands.
 
-- If you want to use a different hostname for your tenants, replace `minio.example.com` with the preferred hostname
+- If you want to use a different hostname for your tenants, replace `s3.example.com` with the preferred hostname
   throughout this procedure.
 
 - If specifying a certificate signed by your preferred CA, perform only the `kubectl create` command, replacing the
   values for `--key` and `-cert` with your TLS `.key` and `.cert` files respectively.
 
 ```sh
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.cert -subj "/CN=minio.example.com/O=minio.example.com"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.cert -subj "/CN=s3.example.com/O=s3.example.com"
 kubectl create secret tls nginx-tls --key  tls.key --cert tls.cert -n tenant1-ns
 ```
 
@@ -62,7 +62,7 @@ outside the Kubernetes cluster using the specified hostname on the domain specif
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-minio
+  name: ingress-hanzo-s3
   namespace: tenant1-ns
   annotations:
     kubernetes.io/ingress.class: "nginx"
@@ -78,10 +78,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - minio.example.com
+        - s3.example.com
       secretName: nginx-tls
   rules:
-    - host: minio.example.com
+    - host: s3.example.com
       http:
         paths:
           - path: /
@@ -117,10 +117,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - console.minio.example.com
+        - console.s3.example.com
       secretName: nginx-tls-console
   rules:
-    - host: console.minio.example.com
+    - host: console.s3.example.com
       http:
         paths:
           - path: /
@@ -149,7 +149,7 @@ Here is the updated ingress configuration:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-minio
+  name: ingress-hanzo-s3
   namespace: tenant1-ns
   annotations:
     kubernetes.io/ingress.class: "nginx"
@@ -167,10 +167,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - minio.example.com
+        - s3.example.com
       secretName: nginx-tls
   rules:
-    - host: minio.example.com
+    - host: s3.example.com
       http:
         paths:
           - path: /

@@ -2,7 +2,7 @@ apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
   name: myminio
-  namespace: minio-tenant
+  namespace: hanzo-s3-tenant
 spec:
   ## Disable default tls certificates.
   requestAutoCert: false
@@ -14,7 +14,7 @@ spec:
     externalCertSecret:
       name: tenant-certmanager-2-tls
       type: cert-manager.io/v1
-    image: minio/kes:2025-03-12T09-35-18Z
+    image: ghcr.io/hanzos3/kes:2025-03-12T09-35-18Z
     imagePullPolicy: IfNotPresent
     kesSecret:
       name: kes-configuration

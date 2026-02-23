@@ -1,10 +1,10 @@
-# Adding capacity to a Hanzo S3 Tenant [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Adding capacity to a Hanzo S3 Tenant 
 
 This document explains how to expand an existing Hanzo S3 Tenant with Operator. This is only applicable to a Tenant (Hanzo S3
 Deployment) created by Hanzo S3 Operator.
 
 Hanzo S3 expansion is done in terms of Hanzo S3 pools, read more about the design
-in [MinIO Docs](https://github.com/minio/minio/blob/master/docs/distributed).
+in [Hanzo S3 Docs](https://github.com/hanzoai/s3/blob/master/docs/distributed).
 
 ## Getting Started
 

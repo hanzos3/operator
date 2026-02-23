@@ -2,12 +2,12 @@
 
 ## Install Direct-PV Driver
 
-Follow the instructions to install DirectPV [here](https://github.com/minio/directpv)
+Follow the instructions to install DirectPV [here](https://github.com/hanzos3/directpv)
 
 ### Utilize the CSI with Hanzo S3 Operator
 
 ```yaml
-  ## This VolumeClaimTemplate is used across all the volumes provisioned for MinIO cluster.
+  ## This VolumeClaimTemplate is used across all the volumes provisioned for Hanzo S3 cluster.
   ## Please do not change the volumeClaimTemplate field while expanding the cluster, this may
   ## lead to unbound PVCs and missing data
   volumeClaimTemplate:

@@ -24,9 +24,9 @@ Install this chart using:
 
 ```bash
 helm install \
-  --namespace minio-operator \
+  --namespace hanzo-s3-operator \
   --create-namespace \
-  minio-operator hanzos3/operator
+  hanzo-s3-operator hanzos3/operator
 ```
 
 The command deploys the Hanzo S3 Operator on the Kubernetes cluster in the default configuration.

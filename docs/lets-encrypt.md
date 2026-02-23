@@ -1,4 +1,4 @@
-# Hanzo S3 tenant with Let's Encrypt [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Hanzo S3 tenant with Let's Encrypt 
 
 This document explains how to deploy a Hanzo S3 tenant using certificates generated
 by [Let's Encrypt](https://letsencrypt.org/).
@@ -42,12 +42,12 @@ helm install nginx-ingress  nginx-stable/nginx-ingress \
 ```
 
 - [kustomize](https://kustomize.io/) installed
-- Configure your DNS to route traffic from the Hanzo S3 Tenant S3 API hostname (e.g. minio.example.com) and the Tenant
+- Configure your DNS to route traffic from the Hanzo S3 Tenant S3 API hostname (e.g. s3.example.com) and the Tenant
   Console hostname(e.g. console.example.com) to the IP address of the worker node running ingress.
 
 ### Deploy tenant
 
-In this example you are going to request a certificate valid for two domains, `minio.example.com`
+In this example you are going to request a certificate valid for two domains, `s3.example.com`
 and `console.example.com`, replace `example.com`
 for the actual domain you want to use.
 
@@ -94,11 +94,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - minio.example.com
+        - s3.example.com
         - console.example.com
       secretName: tenant-tls
   rules:
-    - host: minio.example.com
+    - host: s3.example.com
       http:
         paths:
           - pathType: Prefix
@@ -127,7 +127,7 @@ Once all Hanzo S3 pods are up and running you can query your endpoints with curl
 over `TLS`.
 
 ```bash
-curl -v https://minio.example.com
+curl -v https://s3.example.com
 curl -v https://console.example.com
 ```
 

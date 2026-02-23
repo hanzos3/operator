@@ -6,7 +6,7 @@ resources:
 - ../../../resources
 - operator-ca-tls-secret.yaml
 - sts-tls-certificate.yaml
-- minio-operator-ca-issuer.yaml
+- hanzo-s3-operator-ca-issuer.yaml
 
 patches:
 - path: operator-deployment.yaml

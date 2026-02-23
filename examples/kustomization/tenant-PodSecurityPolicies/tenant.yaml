@@ -3,7 +3,7 @@ apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
   name: myminio
-  namespace: minio-tenant
+  namespace: hanzo-s3-tenant
 spec:
   log:
     db:

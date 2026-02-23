@@ -15,12 +15,12 @@ spec:
     spec:
       containers:
         - name: openldap
-          image: quay.io/minio/openldap:latest
+          image: ghcr.io/hanzos3/openldap:latest
           env:
             - name: LDAP_ORGANIZATION
               value: "Hanzo S3 Inc."
             - name: LDAP_DOMAIN
-              value: "min.io"
+              value: "hanzo.ai"
             - name: LDAP_ADMIN_PASSWORD
               value: "admin"
           imagePullPolicy: "IfNotPresent"

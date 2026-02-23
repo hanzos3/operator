@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: minio-nodeport
+  name: hanzo-s3-nodeport
   labels:
     v1.min.io/tenant: myminio
 spec:
